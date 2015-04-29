@@ -44,6 +44,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   # Testing
+  gem 'factory_girl'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 
