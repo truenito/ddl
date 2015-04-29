@@ -50,4 +50,3 @@ group :development, :test do
   # Goodies
   gem 'spring'
 end
-
