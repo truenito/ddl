@@ -1,0 +1,29 @@
+.col-md-8.col-md-offset-2
+  %h3.heading-centered player pool
+  - if current_user && !current_user.match_tokens.where(result: nil).any?
+    - if !current_user.facebook_authed?
+      .pull-right= link_to('Autenticar FB', join_match_path(@match.id))
+    - elsif @match.status != 'canceled'
+      .pull-right= link_to('Entrar al juego +', join_match_path(@match))
+  .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+    .clearfix
+    .job-list-head.clearfix
+      %ul.job-listings
+        - @players.each_with_index do |player, i|
+          %li
+            - if current_user && current_user.id == player.id &&  @match.status == 'waiting'
+              .pull-right{style: 'margin-left:15px; text-transform: none !important;'}
+                = link_to(image_tag('x-button.png'), leave_match_path(@match.id), {method: 'post', style: 'color: rgb(181, 62, 76);', data: {confirm: 'Estás seguro que deseas salir de esta partida?'}})
+            .title
+              %span.pool-number
+                = i + 1
+              %span.designation
+                = link_to(player.name, '#')
+                %br
+                = player.real_name
+            .location
+              rating:
+              = player.rating
+            .location= "Leaves: #{player.leave_count}"
+            .create= player.status
+            .create= "W:#{player.win_count} / L:#{player.lose_count}"

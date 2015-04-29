@@ -1,0 +1,16 @@
+#login-box
+  %h3 login
+  = render 'shared/flash', flash: flash
+  %hr
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      %p{ style: ' text-align: center;' }
+        = f.label :email
+        = f.email_field :email, autofocus: true, class: 'input-area'
+      %p{ style: ' text-align: center;' }
+        = f.label :password
+        = f.password_field :password, autocomplete: "off", class: 'input-area'
+      %p{ style: ' text-align: center;' }
+        = f.submit "Log in", class: 'input-button'
+      %p{ style: ' text-align: center;' }
+        %span No eres un miembro?
+        = link_to 'Registrate', new_user_registration_path, {style: 'color: blue !important;'}

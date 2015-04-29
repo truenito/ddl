@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: myapp_dev
+  pool: 5
+  username: TrueniTo
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: myapp_dev
+  pool: 5
+  username: TrueniTo
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: myapp_dev
+  pool: 5
+  username: TrueniTo
+  password:

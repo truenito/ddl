@@ -1,0 +1,116 @@
+
+/*
+Global Styles
+Theme    : JobHunt - Elegant Job Board Template
+Version  : v1.0
+*/
+
+/* --------------- Color switcher --------------- */
+
+.colors-switcher {
+    width:46px;
+    padding:10px;
+	padding-top:15px;
+	padding-right:0;
+    position:fixed;
+    z-index:1993;
+    top:100px;
+    right:0;
+    background-color:#fff;
+    border:1px solid rgba(0,0,0,.1);
+    -webkit-transition:all .4s ease-in-out;
+    -moz-transition:all .4s ease-in-out;
+    -ms-transition:all .4s ease-in-out;
+    -o-transition:all .4s ease-in-out;
+    transition:all .4s ease-in-out;
+}
+.colors-switcher > p {
+    font-size: 11px;
+    line-height:0;
+	padding-top:10px;
+}
+.colors-switcher #show-panel {
+    position:absolute;
+    right:-44px;
+    top:15px;
+    width:45px;
+    height:45px;
+    z-index:1992;
+    display:block;
+    background-color:#fff;
+    border:1px solid rgba(0,0,0,.1);
+	border-left:0;
+	margin-left:0;
+    cursor: pointer;
+    -webkit-border-radius:0 50% 50% 0;
+    -moz-border-radius:0 50% 50% 0;
+    border-radius:0 50% 50% 0;
+	text-align:center;
+	padding-top:3px;
+}
+.colors-switcher #show-panel i {
+    color: #3D3D3D;
+    font-size:30px;
+    line-height: 38px;
+}
+.layouts {
+	padding:0 0!important;
+	margin-right:10px;
+}
+.layouts a, .layouts a:hover .layouts a:focus {
+	padding:10px 0!important;
+	margin-bottom:5px;
+	background:#333333;
+	color:#ffffff;
+	display:block!important;
+	text-transform:uppercase;
+	text-align:center;
+	text-decoration:none;
+}
+.colors-switcher .colors-list {
+    margin:0;
+    padding:0;
+}
+.colors-switcher .colors-list li {
+    float:left;
+    display:block;
+    margin-bottom:2px;
+    margin-right:5px;
+}
+.colors-switcher .colors-list li a {
+    display:inline-block;
+    width:24px;
+    height:24px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    transition:all 0.2s linear;
+    -moz-transition:all 0.2s linear;
+    -webkit-transition:all 0.2s linear;
+    -o-transition:all 0.2s linear;
+    cursor: pointer;
+}
+.colors-switcher .colors-list li a:hover {
+    box-shadow:inset 0 0 6px rgba(0,0,0,.4);
+}
+
+
+
+.colors-switcher .colors-list a.gray {
+    background-color:#130a13;
+}
+.colors-switcher .colors-list a.blue {
+    background-color:#4285f4;
+}
+.colors-switcher .colors-list a.orange {
+    background-color:#ed563d;
+}
+.colors-switcher .colors-list a.pink {
+    background-color:#ff69b4;
+}
+.colors-switcher .colors-list a.green {
+    background-color:#7dc24b;
+}
+.colors-switcher .colors-list a.dark-gray {
+    background-color:#343743;
+}

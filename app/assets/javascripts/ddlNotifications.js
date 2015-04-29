@@ -1,0 +1,66 @@
+function rememberReport(match_token_id) {
+  new jBox('Notice', {
+    content: "Te encuentras en un juego," + "<a href='/match_tokens/" + match_token_id + "/edit'> <b>REPORTA AQUÍ</b></a>" + " cuando se termine.",
+    color: 'yellow',
+    animation: 'flip',
+    theme: 'NoticeBorder',
+    title: 'Recuerda!',
+    position: {
+      x: 'left',
+      y: 'bottom'}
+  });
+}
+
+function successReport(success_message) {
+  new jBox('Notice', {
+    content: success_message,
+    color: 'green',
+    animation: 'flip',
+    theme: 'NoticeBorder',
+    title: 'Éxito',
+    position: {
+      x: 'left',
+      y: 'bottom'}
+  });
+}
+
+function errorReport(error_message) {
+  new jBox('Notice', {
+    content: error_message,
+    color: 'red',
+    animation: 'flip',
+    theme: 'NoticeBorder',
+    title: 'Error',
+    position: {
+      x: 'left',
+      y: 'bottom'}
+  });
+}
+
+function newPlayerNotification(new_players_count){
+  new jBox('Notice', {
+    content: "Ha entrado: " + new_players_count + " jugador nuevo.",
+    color: 'green',
+    animation: 'flip',
+    theme: 'NoticeBorder',
+    title: 'Nuevo Jugador!',
+    audio: '/assets/bling2',
+    position: {
+      x: 'left',
+      y: 'bottom'}
+    });
+}
+
+function newPlayersNotification(new_players_count){
+  new jBox('Notice', {
+    content: "Han entrado: " + new_players_count + " jugadores nuevos.",
+    color: 'green',
+    animation: 'flip',
+    theme: 'NoticeBorder',
+    title: 'Nuevos jugadores!',
+    audio: '/assets/bling2',
+    position: {
+      x: 'left',
+      y: 'bottom'}
+    });
+}

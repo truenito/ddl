@@ -1,0 +1,38 @@
+.col-md-8.col-md-offset-2
+  .centered
+    %h2.heading-centered= @match.name
+  .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+    - if current_user
+      - if (current_user.id == @match.creator_id) && (@match.status == 'waiting')
+        .pull-right= link_to('cancelar partida', match_path(@match), {method: :delete, data: {confirm: 'Estás seguro de que quieres cancelar esta partida? (una vez cancelada no hay vuelta atrás!)'}, style: 'color: rgb(181, 62, 76); font-size: 18px;'})
+      - elsif current_user && current_user.match_tokens.exists?(match_id: @match.id) && @match.status == 'playing'
+        .pull-right= " (#{@match.votes_number} reportes)"
+        .pull-right= link_to 'Reportar Resultado', edit_match_token_path(@match_token.id), {style: 'color: green; font-size: 18px;'}
+    .clearfix
+    .job-list-head.clearfix
+      %ul.job-listings
+        %li
+          .title
+            %span.prof-photo
+              = image_tag('avatars/dota-logo.png')
+            %span.designation
+              = @match.name
+              %br
+                host:
+                %i{style: 'color: rgb(181, 62, 76);'}= @creator.name
+          .location= "status: #{@match.pretty_status}".html_safe
+          - if current_user && @match.users.exists?(current_user)
+            .location{style: 'text-transform: none !important;'}= "pass: #{@match.password}"
+          .create= @match.time_ago
+          - if @match.winner_team.nil?
+            .create
+              %span{style: 'color: rgb(181, 62, 76);'} sin decisión
+          - else
+            .create= @match.winner_team == 0 ? 'Radiant' : 'Dire'
+- unless @new_players_count.nil? || @new_players_count.zero?
+  - if @new_players_count == 1
+    :javascript
+      newPlayerNotification(#{@new_players_count})
+  - else
+    :javascript
+      newPlayersNotification(#{@new_players_count})

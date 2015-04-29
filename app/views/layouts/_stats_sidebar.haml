@@ -1,0 +1,55 @@
+%h3.pull-left HALL OF FAME
+%ul.stat-leaders
+  %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
+    %a.featured-single{:href => "single.html"}
+      %span.featured-data
+        %span.designation
+          - if @sidebar_stats[:most_captains].nil?
+            %span todavía no hay un capitanazo.
+          - else
+            %span= @sidebar_stats[:most_captains][:user].name
+            %br
+              %i.bold= "ha sido capitán: #{@sidebar_stats[:most_captains][:count]} veces."
+      %span.image-cont
+        = image_tag('avatars/captain.png')
+  %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
+    %a.featured-single{:href => "single.html"}
+      %span.featured-data
+        %span.designation
+          - if @sidebar_stats[:most_creations].nil?
+            %span todavía no hay un creador líder.
+          - else
+            %span= @sidebar_stats[:most_creations][:user].name
+            %br
+              %i= "ha creado #{@sidebar_stats[:most_creations][:count]} juegos."
+      %span.image-cont
+        = image_tag('avatars/creator.png')
+  - unless @sidebar_stats.nil?
+    %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
+      %a.featured-single{:href => "single.html"}
+        %span.featured-data
+          %span.designation
+            %span= @sidebar_stats[:most_wins].name
+            %br
+              %i.bold= "ha ganado: #{@sidebar_stats[:most_wins].win_count} juegos"
+        %span.image-cont
+          = image_tag('avatars/winner.png')
+  - unless @sidebar_stats.nil?
+    %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
+      %a.featured-single{:href => "single.html"}
+        %span.featured-data
+          %span.designation
+            %span= "ktheory"
+            %br
+              %i.bold= "ha donado: 55.01 dólares."
+        %span.image-cont
+          = image_tag('avatars/donatello.png')
+  / %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
+  /   %a.featured-single{:href => "single.html"}
+  /     %span.featured-data
+  /       %span.designation
+  /         %span= @best_winrate.name
+  /         %br
+  /           =  "Es el líder de winrate con: #{@best_winrate}."
+  /   %span.image-cont
+  /     = image_tag('avatars/creator.png')

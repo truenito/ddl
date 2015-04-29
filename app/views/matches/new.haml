@@ -1,0 +1,16 @@
+= render 'shared/error_messages', object: @match
+%section
+.container
+  .row.clearfix
+    .col-md-6.col-md-offset-3{style: 'padding-top: 20px;'}
+    .col-md-6.col-md-offset-3{style: 'padding-top: 20px;'}
+      %h2{ style: ' text-align: center;' } create new match
+      %hr
+        = form_for @match, url: {action: "create"}, html: {class: "nifty_form"} do |f|
+          %p
+            = f.label :name
+            = f.text_field :name, class: 'input-area'
+          %p
+            = f.label :match_password
+            = f.text_field :password, class: 'input-area'
+          = f.submit "Create", class: 'input-button'

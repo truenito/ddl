@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  winner: false
+  comment: MyString
+  user_id: 1
+  match_id: 1
+  review_needed: false
+
+two:
+  winner: false
+  comment: MyString
+  user_id: 1
+  match_id: 1
+  review_needed: false

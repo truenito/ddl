@@ -1,0 +1,35 @@
+%section
+  .container
+    .row.clearfix
+      .col-md-6.col-md-offset-3{style: 'padding-top: 20px;'}
+        %h2{ style: ' text-align: center;' } Sign up to Dominican DotA League
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          = f.label :nickname
+          %p{ style: ' text-align: center;' }
+            = f.text_field :name, autofocus: true, class: 'input-area'
+          / %label
+          /   Steam ID
+          /   %i
+          /     (sólo números
+          /     = link_to 'ayuda', 'http://steamid.co/', {target: '_blank'}
+          /     )
+          / %p{ style: ' text-align: center;' }
+          /   = f.text_field :steam_id, autofocus: true, class: 'input-area'
+          %label
+            Email
+            %i (usar el mismo de Facebook)
+          %p{ style: ' text-align: center;' }
+            = f.email_field :email, autofocus: true, class: 'input-area'
+          = f.label :password
+          - if @validatable
+            %em
+              (#{@minimum_password_length} characters minimum)
+            %p{ style: ' text-align: center;' }
+              = f.password_field :password, autocomplete: "off", class: 'input-area'
+          = f.label :password_confirmation
+          %p{ style: ' text-align: center;' }
+            = f.password_field :password_confirmation, autocomplete: "off", class: 'input-area'
+          %p{ style: ' text-align: center;' }
+            = f.submit "Sign up", class: 'input-button'
+        = render "devise/shared/links"

@@ -1,0 +1,55 @@
+.col-md-8.col-md-offset-2{style: 'margin-top:10px;'}
+  .pull-left= link_to 'inicio', root_path, {style: 'color: rgb(181, 62, 76);'}
+  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+  .pull-left matches
+.col-md-8.col-md-offset-2
+  .centered
+    %h2 list of matches
+  .col-md-12.job-listing-full
+    - if user_signed_in? && current_user.can_create_games?
+      .pull-right= link_to 'Crear nuevo juego de liga +', new_match_path
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+    - if @matches.any?
+      %ul.job-listings
+        - @matches.each do |match|
+          - if match.canceled?
+            %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+              .title
+                %span.prof-photo
+                  = image_tag('avatars/dota-logo.png')
+                %span.designation
+                  = match.name
+              .location
+                status:
+                = match.pretty_status
+              - if user_signed_in? && match.users.exists?(current_user)
+                .location= "pass: #{match.password}"
+              .create= " " + time_ago_in_words(match.created_at)
+              - if match.winner_team.nil?
+                .create
+                  %span{style: 'color: rgb(181, 62, 76);'} sin decisión
+              - else
+                = "winner: "
+                = match.winner_team == false ? 'radiant' : 'dire'
+          - else
+            = link_to match_path(match) do
+              %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+                .title
+                  %span.prof-photo= image_tag('avatars/dota-logo.png')
+                  %span.designation
+                    = match.name
+                .location
+                  status:
+                  = match.pretty_status
+                .create= " " + time_ago_in_words(match.created_at)
+                - if match.winner_team.nil?
+                  .create
+                    %span{style: 'color: rgb(181, 62, 76);'} sin decisión
+                - else
+                  .create
+                    = "winner: "
+                    = match.winner_team == false ? 'radiant' : 'dire'
+    - else
+      .centered
+        %span= "No se ha jugado ningún match, #{link_to 'TEN EL PRIMERO!', new_match_path}".html_safe

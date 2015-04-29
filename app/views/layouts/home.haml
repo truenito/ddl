@@ -1,0 +1,54 @@
+!!!
+%html{:lang => "en-US"}
+  %head
+    %meta{:charset => "utf-8"}
+      %title Dominican DotA League
+      = favicon_link_tag 'favicon.ico'
+      %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      %meta{:content => " DDL es una comunidad Dominicana de In-Houses conformada por jugadores competitivos especializados en Defense of the Ancients 2 (DotA 2).", :name => "description"}
+      %meta{:content => "DotA 2, Dominicano, Dota dominicana, dota dominicano, Dota 2 dominicano, dota 2 latino, liga de dota latina, liga de dota dominicana, liga dominicana de dota, dota 2 liga, liga dota 2 dominicana, in houses dota 2, liga de inhouse dominicana, grupo dominicano de dota", :name => "keywords"}
+    = stylesheet_link_tag    'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    #mask
+      #loader
+    = render ('layouts/main_menu')
+    - if Rails.env.production?
+      %script#cid0020000089726659016{:async => "", "data-cfasync" => "false", :src => "//st.chatango.com/js/gz/emb.js", :style => "width: 250px;height: 300px;"} {"handle":"ddl-web","arch":"js","styles":{"a":"000000","b":100,"c":"FFFFFF","d":"FFFFFF","k":"000000","l":"000000","m":"000000","n":"FFFFFF","p":"10","q":"000000","r":100,"pos":"br","cv":1,"cvfntw":"bold","cvbg":"000000","cvw":122,"cvh":38}}
+    = render('shared/global_announcement')
+    .clearfix
+    #sb-site.wrapper
+      = yield
+      .clearfix
+      %footer.footer-main
+        = render('layouts/footer')
+    / ddl General Notifications.
+    = render('layouts/general_notifications')
+    = render 'shared/flash', flash: flash
+    / ddl Google Analytics.
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-61803265-1', 'auto');
+      ga('send', 'pageview');
+    / ddl Loading gif.
+    :javascript
+      jQuery(document).ready(function($) {
+        $('a[data-popup*=facebox]').facebox({
+          opacity      : 0.9,
+          loadingImage : 'loading.gif',
+          closeImage   : 'closelabel.png'
+        })
+      })
+    / ddl Banner Slider Js.
+    :javascript
+      $('.banner-slider').flexslider({
+        animation: "fade",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });

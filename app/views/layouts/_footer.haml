@@ -1,0 +1,33 @@
+.container
+  .row.clearfix
+    .col-md-12.footer-conts{style: 'text-align: center;'}
+      %h3.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"} ddl es gratis
+      %h5.uppercase.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"} Auspiciado por STOMP Machine y la Comunidad de DotA 2 Dominicana.
+      %i Las donaciones son opcionales y solo benefician al usuario cosméticamente
+      %form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post", :target => "_top"}
+        %input{:name => "cmd", :type => "hidden", :value => "_s-xclick"}
+          %input{:name => "hosted_button_id", :type => "hidden", :value => "VRFCP26RVLJVA"}
+            %input{:alt => "PayPal - The safer, easier way to pay online!", :border => "0", :name => "submit", :src => "https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif", :type => "image"}
+              %img{:alt => "", :border => "0", :height => "1", :src => "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", :width => "1"}
+      %hr.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "300"}
+      %ul.footer-menu.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
+        %li
+          = link_to 'INICIO', root_path
+        %li
+          = link_to('JUEGOS', matches_path)
+        %li
+          = link_to('JUGADORES', users_path)
+        %li
+          = link_to('REGLAS', '#')
+        %li
+          = link_to('NOSOTROS', nosotros_path)
+        %li
+          = link_to('REPORTAR', '#')
+        %li
+          = link_to('CONTACTO', '#')
+      %p.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
+        \&copy; 2015
+        = succeed "." do
+          Dominican DotA League
+          %br
+          desarrollado por <a target='_blank' href='http://estilopanda.com'>estilopanda.com</a>, derechos reservados.

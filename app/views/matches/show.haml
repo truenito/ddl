@@ -1,0 +1,94 @@
+.col-md-8.col-md-offset-2{style: 'margin-top:10px;'}
+  .pull-left= link_to 'inicio', root_path, {style: 'color: rgb(181, 62, 76);'}
+  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+  .pull-left= link_to 'matches', matches_path, {style: 'color: rgb(181, 62, 76);'}
+  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+  .pull-left match
+.clearfix
+#match-data
+  = render 'match_info'
+- if @match.teams.any?
+  .col-md-8.col-md-offset-2
+    %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
+    .col-md-3.pull-right{style: 'padding: 0;'}
+      %h6{style: 'text-align: right;'}
+        Average MMR:
+        = @radiant_team_avg
+    .col-md-3.pull-right{style: 'padding: 0;'}
+      %h6{style: 'text-align: right;'}
+        Win:
+        +
+        = @rating_change[:dire]
+        ="/"
+        ="-"
+        Lose:
+        = @rating_change[:radiant]
+    .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+      .clearfix
+      .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+        %ul.job-listings
+          - @radiant_team.users.decorate.each do |player|
+            %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+              .title
+                %span.prof-photo
+                  = link_to(image_tag('avatars/radiant.png'), '#')
+                %span.designation
+                  = link_to(player.name, '#')
+                  %br
+                  = player.real_name
+              .location
+                rating:
+                = player.rating
+              .location{:class => ("captain" if @radiant_team.captain_id == player.id)}= @radiant_team.captain_id == player.id ? "CAPTAIN" : "player"
+              .create= player.status
+              .create= "W:#{player.win_count} / L:#{player.lose_count}"
+
+- if @match.teams.any?
+  .col-md-8.col-md-offset-2
+    %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
+    .col-md-3.pull-right{style: 'padding: 0;'}
+      %h6{style: 'text-align: right;'}
+        Average MMR:
+        = @dire_team_avg
+    .col-md-3.pull-right{style: 'padding: 0;'}
+      %h6{style: 'text-align: right;'}
+        Win:
+        +
+        = @rating_change[:radiant]
+        = "/"
+        ="-"
+        Lose:
+        = @rating_change[:dire]
+    .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+      .clearfix
+      .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+        %ul.job-listings
+          - @dire_team.users.decorate.each do |player|
+            %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+              .title
+                %span.prof-photo
+                  = link_to(image_tag('avatars/dire.png'), '#')
+                %span.designation
+                  = link_to(player.name, '#')
+                  %br
+                  = player.real_name
+              .location
+                rating:
+                = player.rating
+              .location{:class => ("captain" if @dire_team.captain_id == player.id)}= @dire_team.captain_id == player.id ? "CAPTAIN" : "player"
+              .create= player.status
+              .create= "W:#{player.win_count} / L:#{player.lose_count}"
+
+#player-pool
+  = render 'player_pool'
+
+/ Refresh match pool every 5 seconds.
+:javascript
+  $(document).ready(function () {
+      setInterval(refreshPartial, 5000)
+  });
+  function refreshPartial() {
+    $.ajax({
+      url: "/match_info?id=#{@match.id}"
+   })
+  }

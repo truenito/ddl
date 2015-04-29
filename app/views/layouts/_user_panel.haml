@@ -1,0 +1,12 @@
+- if current_user
+  .user-panel.pull-right
+    %span
+      %span= image_tag('user.png', height: 15, width: 15, style: 'margin-right: 5px; margin-left: 5px; maring-top: -3px;')
+      %s5an= link_to(current_user.name, '#', style: 'color: white;')
+      %span{style: 'margin-left:4px;'}= link_to(' salir', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete})
+- else
+  .user-panel.pull-right
+    %span
+      = link_to('#', {"data-popup" => "facebox", :href => "#login-box", style: 'color: white;'}) do
+        %span log in
+        %span= image_tag('user.png', height: 15, width: 15, style: 'margin-right: 5px; maring-top: -5px;')

@@ -1,0 +1,165 @@
+%section.inner-full-cont
+  .container
+    .row.clearfix
+      .col-md-12.full-width-area.text-center
+        %h2
+          %br la liga
+        %h5 una espacio de todos para todos
+        %p
+          Lo primero es responder quienes somos, DDL es una comunidad Dominicana de jugadores de DotA apoyada por el grupo de Facebook de
+          = link_to('DotA 2 Dominicana', 'https://www.facebook.com/profile.php?id=533281023403576')
+          y creada bajo la iniciativa de varios miembros de STOMP Machine (un grupo de jugadores competitivos parecida a
+          = link_to('DPGL','https://www.facebook.com/dpgl.tv?fref=ts')
+          pero con objetivos distintos).
+        %p
+          Nuestra misión es ofrecer a la comunidad de DotA 2 Dominicana un ambiente competitivo donde puedan organizar In-Houses (lobbies) usando una herramienta avanzada.
+        %p Dominican DotA League le oferece a sus jugadores:
+        .col-conts.clearfix
+          .col-md-4
+            %i.fa.fa-cogs
+            %h5 estadisticas
+            %p El sistema es capaz de llevar un registro de estádisticas de las partidas a un nivel muy aceptable y con miras a completarse al salir de la etapa de beta.
+          .col-md-4
+            %i.fa.fa-gift
+            %h5  auto-balanceo
+            %p Gracias a nuestro avanzado algoritmo de calculo ELO se garantiza que las habilidades de los equipos sean muy similares, se asignan capitanes y lados (dire & radiant) por lo que solo hace falta crear el lobby y jugar!
+          .col-md-4
+            %i.fa.fa-pie-chart
+            %h5 comunicacion
+            %p Ofrecemos un TeamSpeak gratuito 24/7 a todos los usuarios de la comunidad, por favor úsalo para las partidas!
+            %p
+              %b Server:
+              192.241.180.40
+              %br
+              %b Password:
+              - if user_signed_in?
+                sw33t
+              - else
+                (loggeate para verlo)
+%section.how-it-works
+  .container
+    %h3.animated como funciona el sistema?
+    %h5.uppercase.animated el flujo es el siguiente
+    %hr.animated
+      %p
+        Un usuario registrado crea una partida por medio de la página con un nombre y un password, los demás entran a la partida (todos deben validar sus usuarios con Facebook una vez).
+      %p
+        Cuando a la partida entran un total de 10 jugadores el sistema balancea los equipos en base a los ratings de cada usuario, asigna los lados (Dire/Radiant), un capitán por equipo y muestra el password del lobby solo a las personas que entraron a la misma.
+      %p
+        La persona que inició la partida crea el juego dentro del DotA (un lobby) a la cual deben ingresar los participantes inscritos, replicar los equipos creados por el sistema y comenzar a jugar!
+      %p
+        Al finalizarse el juego los jugadores vuelven a la partida en el sistema, hacen click en reportar resultado y votan por el equipo que ganó!
+      %p
+        Al registrase 6 votos por el mismo equipo (o 6 votos cancelando la partida) se cierra la misma y se distribuyen los puntos como corresponden... LISTO!
+      .laptop-img.animated
+        = image_tag('home-page.png')
+/ %section.happy-campers-main
+/   .container
+/     %h3.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"} Happy Campers
+/     %h5.uppercase.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"} What other people thought about the service provided by jobhunt
+/     %hr
+/       .testimonial-main
+/         #test1.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ex ea commodo consequat. &quot;
+/           %h6 KIDESIGNER - 5GOAT CORP
+/         #test2.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Excellent service offering a personal touch, if I had an issue they were no longer than a phone call away and were always quick to respond. &quot;
+/           %h6 Responsive Expert - Reowix Technologies
+/         #test3.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores. &quot;
+/           %h6 MarksMom - Sea Corp
+/         #test4.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ex ea commodo consequat. &quot;
+/           %h6 KIDESIGNER - 5GOAT CORP
+/         #test5.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Excellent service offering a personal touch, if I had an issue they were no longer than a phone call away and were always quick to respond. &quot;
+/           %h6 Responsive Expert - Reowix Technologies
+/         #test6.testimonial-single.active.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores. &quot;
+/           %h6 MarksMom - Sea Corp
+/         #test7.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ex ea commodo consequat. &quot;
+/           %h6 KIDESIGNER - 5GOAT CORP
+/         #test8.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Excellent service offering a personal touch, if I had an issue they were no longer than a phone call away and were always quick to respond. &quot;
+/           %h6 Responsive Expert - Reowix Technologies
+/         #test9.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores. &quot;
+/           %h6 MarksMom - Sea Corp
+/         #test10.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ex ea commodo consequat. &quot;
+/           %h6 KIDESIGNER - 5GOAT CORP
+/         #test11.testimonial-single.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+/           .txt-cont-qu
+/             %p &quot; Excellent service offering a personal touch, if I had an issue they were no longer than a phone call away and were always quick to respond. &quot;
+/           %h6 Responsive Expert - Reowix Technologies
+/       %ul.campers-all
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "100"}
+/           %a{:href => "#test1"}
+/             %img{:alt => "", :src => "img/prof-01.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "200"}
+/           %a{:href => "#test2"}
+/             %img{:alt => "", :src => "img/prof-02.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "300"}
+/           %a{:href => "#test3"}
+/             %img{:alt => "", :src => "img/prof-03.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "400"}
+/           %a{:href => "#test4"}
+/             %img{:alt => "", :src => "img/prof-04.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "500"}
+/           %a{:href => "#test5"}
+/             %img{:alt => "", :src => "img/prof-05.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "600"}
+/           %a.active{:href => "#test6"}
+/             %img{:alt => "", :src => "img/prof-06.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "700"}
+/           %a{:href => "#test7"}
+/             %img{:alt => "", :src => "img/prof-07.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "800"}
+/           %a{:href => "#test8"}
+/             %img{:alt => "", :src => "img/prof-08.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "900"}
+/           %a{:href => "#test9"}
+/             %img{:alt => "", :src => "img/prof-01.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "1000"}
+/           %a{:href => "#test10"}
+/             %img{:alt => "", :src => "img/prof-02.jpg"}/
+/         %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "1100"}
+/           %a{:href => "#test11"}
+/             %img{:alt => "", :src => "img/prof-03.jpg"}/
+/ %section.got-a-question
+/   .container
+/     .row.clearfix
+/       .col-md-3.call-us-head.animated{"data-animation" => "fadeInLeft", "data-animation-delay" => "200"}
+/         %h3 Got a Question?
+/       .col-md-6.call-us-txt.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "300"}
+/         %p Send us an email or call us at 1 800 555 5555
+/       .col-md-3.call-us-link.animated{"data-animation" => "fadeInRight", "data-animation-delay" => "200"}
+/         %a.call-us-btn{:href => "contact.html"} CONTACT NOW
+/ %section.app-download-main
+/   .container
+/     .row.clearfix
+/       .col-md-8.down-txt-cont.animated{"data-animation" => "fadeInLeft", "data-animation-delay" => "200"}
+/         %h3 Get JobHunt Applications
+/         %h5.uppercase Available on everything you use every day.
+/         %hr
+/           .download-txt
+/             %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+/             %a.lined-btns{:href => "#"}
+/               %i.fi-social-apple>
+/               IOS APP
+/             %a.lined-btns{:href => "#"}
+/               %i.fi-social-android>
+/               ANDROID
+/         .image-outer
+/           %img{:alt => "", :src => "img/iphone.png"}/

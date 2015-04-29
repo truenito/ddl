@@ -1,0 +1,16 @@
+%section
+  .container
+    .row.clearfix
+      .col-md-6.col-md-offset-3{style: 'padding-top: 20px;'}
+        %h2{ style: ' text-align: center;' } login
+        %hr
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            %p
+              = f.label :email
+              = f.email_field :email, autofocus: true, class: 'input-area'
+            %p
+              = f.label :password
+              = f.password_field :password, autocomplete: "off", class: 'input-area'
+            %p{ style: ' text-align: center;' }
+              = f.submit "Log in", class: 'input-button'
+        = render "devise/shared/links"

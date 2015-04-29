@@ -1,0 +1,39 @@
+%header.sb-slidebar.sb-left
+  %nav.main-menu
+    %ul
+      - if current_user
+        %li
+          .user-menu-data
+            %h5{style: 'color: white; -webkit-text-stroke: 1px black; padding: 0px;'}= current_user.decorate.name
+            .user-rating= "#{current_user.rating} RATING"
+            .user-rating= "W: #{current_user.win_count} / L: #{current_user.lose_count}"
+        %br
+      %li
+        = link_to('Inicio', root_path)
+      %li
+        = link_to('Jugadores', users_path)
+      %li
+        %a{:href => "#"} Juegos
+        %ul.sub-menu
+          %li
+            = link_to 'Ver todos', matches_path
+          - if user_signed_in? && current_user.can_create_games?
+            %li
+              = link_to 'Crear +', new_match_path
+      %li
+        = link_to('Nosotros', nosotros_path)
+      %li
+        %a{:href => "#"} Reglas
+      %li
+        %a{:href => "#"} Contacto
+      %li
+        %a{:href => "https://www.facebook.com/thestompmachine"} FACEBOOK
+      %br
+      %br
+      %br
+      - if current_user
+        %li
+          = link_to('salir', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete})
+      - else
+        %li
+          .waiting= link_to 'loggeate  ', '#', {"data-popup" => "facebox", :href => "#login-box", class: 'waiting'}

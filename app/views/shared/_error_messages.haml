@@ -1,0 +1,5 @@
+.col-md-12{style: 'height: 70px;'}
+  - if object.errors.full_messages.any?
+    - object.errors.full_messages.each do |error_message|
+      .centered{style: 'color: rgb(181, 62, 76); padding-top: 30px;'}= error_message if object.errors.full_messages.first == error_message
+      %br/

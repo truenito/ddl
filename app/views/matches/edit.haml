@@ -1,0 +1,75 @@
+.col-md-8.col-md-offset-2
+  .centered
+    %h2.heading-centered= "Reporte de resultados para el match ##{@match.id}"
+  .col-md-12.job-listing-full
+    .pull-left= link_to 'Inicio', root_path, {style: 'color: rgb(181, 62, 76);'}
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+      %ul.job-listings
+        %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+          .title
+            %span.prof-photo
+              = link_to(image_tag('avatars/dota-logo.png'), '#')
+            %span.designation
+              = @match.name
+          .location
+            status:
+            - if @match.status == 'waiting'
+              %i{style: 'color: rgb(181, 62, 76);'}= "#{@match.status}"
+            - elsif @match.status == 'playing'
+              %i{style: 'color: rgb(199, 211, 14);'}= "#{@match.status}"
+            - else @match.status == 'playing'
+              %i{style: 'color: rgb(28, 184, 30);'}= "#{@match.status}"
+          .location= " " + time_ago_in_words(@match.created_at) match_token
+
+.col-md-8.col-md-offset-2
+  %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
+  .col-md-12.job-listing-full
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+      %ul.job-listings
+        - @radiant_team.users.each do |player|
+          %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+            .title
+              %span.prof-photo
+                = link_to(image_tag('avatars/radiant.png'), '#')
+              %span.designation
+                = link_to(player.name, '#')
+                %br
+                  / TODO: @truenito: Move all of this logic to decorator.
+                  - if player.real_name
+                    = player.real_name + " " + player.real_middle_name + " " + player.real_last_name
+                  - else
+                    = 'Loca sin nombre'
+            .location
+              rating:
+              = player.rating
+            .location{:class => ("captain" if @radiant_team.captain_id == player.id)}= @radiant_team.captain_id == player.id ? "CAPTAIN" : "player"
+            .create= player.status
+            .create= "W:#{player.win_count} / L:#{player.lose_count}"
+
+.col-md-8.col-md-offset-2
+  %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
+  .col-md-12.job-listing-full
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+      %ul.job-listings
+        - @dire_team.users.each do |player|
+          %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+            .title
+              %span.prof-photo
+                = link_to(image_tag('avatars/dire.png'), '#')
+              %span.designation
+                = link_to(player.name, '#')
+                %br
+                  / TODO: @truenito: Move all of this logic to decorator.
+                  - if player.real_name
+                    = player.real_name + " " + player.real_middle_name + " " + player.real_last_name
+                  - else
+                    = 'Loca sin nombre'
+            .location
+              rating:
+              = player.rating
+            .location{:class => ("captain" if @dire_team.captain_id == player.id)}= @dire_team.captain_id == player.id ? "CAPTAIN" : "player"
+            .create= player.status
+            .create= "W:#{player.win_count} / L:#{player.lose_count}"
