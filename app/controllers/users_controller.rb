@@ -11,6 +11,7 @@ class UsersController < ActionController::Base
     @user = user.decorate
     user_matches = user.matches
     played_games = user_matches.select{|x| x.status == 'ended'}
+    played_games = played_games.sort_by{ |x| x.created_at}.reverse
     @played_games = MatchDecorator.decorate_collection(played_games)
   end
 
