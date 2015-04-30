@@ -84,7 +84,7 @@
         .panel.panel-default
           .panel-heading= "Descripción de " + @user.simple_name
           .panel-body
-            - if @user.id == current_user.id
+            - if current_user && @user.id == current_user.id
               = best_in_place @user, :description, :as => :textarea, ok_button: 'Grabar descripción.', width: 1000
             - else
               = @user.description
