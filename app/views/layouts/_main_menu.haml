@@ -8,6 +8,10 @@
             .user-rating= "#{current_user.rating} RATING"
             .user-rating= "W: #{current_user.win_count} / L: #{current_user.lose_count}"
         %br
+      - else
+        %li
+          .waiting= link_to 'Iniciar sesión <br /><i>(login)</i>  '.html_safe, '#', {"data-popup" => "facebox", :href => "#login-box", class: 'ended'}
+        %br
       %li
         = link_to('Inicio', root_path)
       %li
@@ -31,9 +35,6 @@
       %br
       %br
       %br
-      - if current_user
+      - if user_signed_in?
         %li
-          = link_to('salir', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete})
-      - else
-        %li
-          .waiting= link_to 'loggeate  ', '#', {"data-popup" => "facebox", :href => "#login-box", class: 'waiting'}
+          = link_to('salir (logout)', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete})

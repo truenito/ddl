@@ -28,21 +28,20 @@
           %p{ style: ' text-align: center;' }
             %span No eres un miembro?
             = link_to 'Registrate', new_user_registration_path, {style: 'color: blue !important;'}
-    = render('shared/global_announcement')
+    / = render('shared/global_announcement')
     = render ('layouts/main_menu')
     - if Rails.env.production?
       %script#cid0020000089726659016{:async => "", "data-cfasync" => "false", :src => "//st.chatango.com/js/gz/emb.js", :style => "width: 250px;height: 300px;"} {"handle":"ddl-web","arch":"js","styles":{"a":"000000","b":100,"c":"FFFFFF","d":"FFFFFF","k":"000000","l":"000000","m":"000000","n":"FFFFFF","p":"10","q":"000000","r":100,"pos":"br","cv":1,"cvfntw":"bold","cvbg":"000000","cvw":122,"cvh":38}}
     #sb-site.wrapper
-      %section.header-area-inner
-        .container
+      %section.main
+        .col-md-12.header-area-inner
           .navigation-area.clearfix
             %a.sb-toggle-left.inner-page
               %span
               %span
               %span
-            .inner-logo-area
-              = link_to(image_tag('ddl-logo-white.png'), root_path)
-            = render ('layouts/user_panel')
+            / = render ('layouts/user_panel')
+          = link_to(image_tag('ddl-logo-white-mini.png', class: 'img-responsive img-center inside-logo'), root_path)
       .clearfix
       = yield
       .clearfix

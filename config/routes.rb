@@ -22,5 +22,5 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks", :registrations => "registrations"}
 
-  get "user/:username" => "users#show"
+  get "user/:username" => "users#show", :constraints => { username: /[^:]+/ }
 end

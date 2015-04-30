@@ -1,0 +1,162 @@
+.row.mb-15
+.container.target
+  .row
+    .col-sm-12
+      %a{:href => "/users"}
+        = image_tag('avatars/headset.jpg', class: 'img-responsive img-circle img-center')
+    .col-md-12
+      %h2.mb-10.text-center= @user.simple_name
+    /   %button.btn.btn-success{:type => "button"} Agregar +
+    /   %button.btn.btn-info{:type => "button"} Enviar mensaje
+    /   %br
+  %br
+    .row
+      .col-sm-3
+        %ul.list-group
+          %li.list-group-item.text-muted{:contenteditable => "false"} Perfil
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Registrado:
+            = @user.created_at.strftime('%b %d %Y')
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Último Acceso:
+              %br
+            = @user.last_sign_in_at.strftime('%b %d %Y, %l:%M %p')
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Nombre Real:
+            Gabriel Danilo González Mañaná
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Membresía:
+            - if @user.admin? && @user.donator?
+              Admin/Donator
+            - elsif @user.donator?
+              Donator
+            - else
+              Jugador
+        .panel.panel-default
+          .panel-heading
+            Autenticado con Facebook?
+          .panel-body
+            %i.fa.fa-check-square{:style => "color:green"}
+            - if @user.facebook_authed?
+              Si, estoy autenticado con Facebook.
+            - else
+              No me he autenticado con Facebook aún :(
+        - if @user.facebook_authed?
+          .panel.panel-default
+            .panel-heading
+              Personal
+              %i.fa.fa-link.fa-1x
+            .panel-body
+              = link_to('Perfil de Facebook', @user.facebook_link, {target: '_blank '})
+        %ul.list-group
+          %li.list-group-item.text-muted
+            Actividad
+            %i.fa.fa-dashboard.fa-1x
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Ganados
+            = "-"
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Perdidos
+            = "-"
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Creados
+            = "-"
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Donado
+            = "-"
+        / .panel.panel-default
+        /   .panel-heading Soon
+        /   .panel-body
+        /     %i.fa.fa-facebook.fa-2x
+        /     %i.fa.fa-github.fa-2x
+        /     %i.fa.fa-twitter.fa-2x
+        /     %i.fa.fa-pinterest.fa-2x
+        /     %i.fa.fa-google-plus.fa-2x
+      .col-sm-9{:contenteditable => "false", :style => ""}
+        .panel.panel-default
+          .panel-heading= "Descripción de " + @user.simple_name
+          .panel-body
+            %i (pronto)
+        .panel.panel-default.target
+          .panel-heading{:contenteditable => "false"} Estadísticas
+          .panel-body
+            .row
+              .col-md-4
+                .thumbnail
+                  = image_tag('win-rate.png')
+                  .caption
+                    %h3
+                      WIN RATE
+                    %p
+                      %i (soon)
+                    %p
+              .col-md-4
+                .thumbnail
+                  = image_tag('rating.png')
+                  .caption
+                    %h3
+                      RATING
+                    %p= @user.rating
+                    %p
+              .col-md-4
+                .thumbnail
+                  = image_tag('games-played.png')
+                  .caption
+                    %h3
+                      PARTIDAS
+                    %p= "Ha jugado en #{@played_games.count} partidas."
+                    %p
+        .panel.panel-default
+          .panel-heading Úlimas Partidas
+          .panel-body
+            - if @played_games.any?
+              %ul.job-listings
+                - @played_games.each do |match|
+                  - if match.canceled?
+                    %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+                      .title
+                        %span.prof-photo
+                          = image_tag('avatars/dota-logo.png')
+                        %span.designation
+                          = match.name
+                      .location
+                        status:
+                        = match.pretty_status
+                      - if user_signed_in? && match.users.exists?(current_user)
+                        .location= "pass: #{match.password}"
+                      .create= " " + time_ago_in_words(match.created_at)
+                      - if match.winner_team.nil?
+                        .create
+                          %span{style: 'color: rgb(181, 62, 76);'} sin decisión
+                      - else
+                        = "winner: "
+                        = match.winner_team == false ? 'radiant' : 'dire'
+                  - else
+                    = link_to match_path(match) do
+                      %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+                        .title
+                          %span.prof-photo= image_tag('avatars/dota-logo.png')
+                          %span.designation
+                            = match.name
+                        .location
+                          status:
+                          = match.pretty_status
+                        .create= "Hace " + time_ago_in_words(match.created_at)
+                        - if match.winner_team.nil?
+                          .create
+                            %span{style: 'color: rgb(181, 62, 76);'} sin decisión
+                        - else
+                          .create
+                            = "winner: "
+                            = match.winner_team == false ? 'radiant' : 'dire'
+            - else
+              .centered
+                %span= "No se ha jugado ningún match, #{link_to 'CREA EL PRIMERO!', new_match_path}".html_safe

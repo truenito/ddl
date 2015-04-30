@@ -8,6 +8,14 @@ class UserDecorator < Draper::Decorator
     pretty_name
   end
 
+  def regular_name
+    object.name
+  end
+
+  def simple_name
+    object.name.downcase
+  end
+
   def real_name
     markup = ''
     if object.real_name.nil?

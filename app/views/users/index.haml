@@ -1,7 +1,6 @@
 .col-md-12
   .col-md-10.col-md-offset-1
-    .col-md-offset-5
-      %h2 jugadores
+    %h2.text-center jugadores
     .clearfix
     %table#user-table.table.table-striped.user-table
       %thead
@@ -20,7 +19,7 @@
             %td.position.post= position + 1
             %td.profile-pic= leaderboard_image(position)
             %td
-              = link_to(user.name, '#')
+              = link_to(user.name, "/user/#{user.regular_name}")
               %br
               %i= user.real_name
             %td.i-info

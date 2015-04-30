@@ -11,10 +11,10 @@
     .container
       .navigation-area.clearfix
         %a.sb-toggle-left
-          %span
-          %span
-          %span
-        = render ('layouts/user_panel')
+          %span{style: 'border: 2px solid black; height: 6px;'}
+          %span{style: 'border: 2px solid black; height: 6px;'}
+          %span{style: 'border: 2px solid black; height: 6px;'}
+        / = render ('layouts/user_panel')
       .logo-area
         = image_tag('ddl-logo-white.png', style: 'width: 320px; height:237px;' )
         / %h1{style: 'color: white; -webkit-text-stroke: 1px black; font-size: 75px; padding: 0px;   text-shadow:-3px -3px 0 #000,3px -3px 0 #000,-3px 3px 0 #000, 3px 3px 0 #000;);'} dominican dota league
@@ -61,7 +61,7 @@
                 %td.position.post= position + 1
                 %td.profile-pic= leaderboard_image(position)
                 %td
-                  = link_to(leader.name, '#')
+                  = link_to(leader.name, "/user/#{leader.regular_name}")
                   %br
                   %i= leader.real_name
                 %td.i-info= leader.wins_and_losses
