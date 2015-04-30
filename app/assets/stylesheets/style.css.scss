@@ -28,9 +28,13 @@
   padding: 15px;
 }
 
-.text-center{text-align:center;}
+.text-center{
+  text-align:center;
+}
 
-.img-center {margin:0 auto;}
+.img-center {
+  margin:0 auto;
+}
 
 .panel{
   border-radius: 0px;
@@ -108,6 +112,7 @@ iframe {
   font-size: 35px;
 }
 
+/* Color codes */
 .captain{
 	color: rgb(42, 42, 155) !important; /* blueish */
 }
@@ -142,10 +147,6 @@ iframe {
 .user-rating{
 	color: white;
 	margin-left: 3px;
-}
-
-.inside-logo{
-  height: 75px;
 }
 
 img.donator-icon{
@@ -537,7 +538,6 @@ label {
 }
 
 .navigation-area {
-  position: absolute;
 	padding:0 0 0 0;
 	margin:0 0 0 0;
 }
@@ -795,13 +795,42 @@ input[type=checkbox]:not(old):checked + label > span:before{
 
 /* ============== Inner Page Header Area ============== */
 
-.header-area-inner {
-	padding: 15px 0px 30px 0;
+.header {
+	padding: 15px 0px 0px 0;
 	margin:0 0 0 0;
 	background: #130a13;
   position: fixed;
   height: 100px;
+  width: 100%;
   z-index: 100;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  display: block;
+}
+
+.header.shrink {
+    position: fixed;
+    height: 70px;
+    background: #130a13;
+
+}
+.header img
+{
+    height: 75px;
+    font-size:30px;
+    font-weight:normal;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.header.shrink img
+{
+    height: 45px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
 section.main{
@@ -1131,7 +1160,8 @@ section.main{
 }
 
 .job-listings li .title .pool-number {
-  padding: 13px 17px;
+  padding: 13px 0px;
+  text-align: center;
   margin: 0 0 0 0;
   float: left;
   width: 60px;
