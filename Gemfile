@@ -31,6 +31,7 @@ gem 'rails_12factor', group: :production
 gem 'jquery-datatables-rails', '~> 3.2.0'
 gem 'dota'
 gem 'elo_rating'
+gem 'best_in_place', '~> 3.0.1'
 
 # Enviornment specifics
 group :production do

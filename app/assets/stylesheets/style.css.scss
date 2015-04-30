@@ -837,6 +837,11 @@ section.main{
   height: 120px;
 }
 
+.form_in_place > textarea{
+  min-width: 500px !important;
+  width: 500px !important;
+}
+
 .sb-toggle-left.inner-page, .sb-toggle-left.inner-page:hover, .sb-toggle-left.inner-page:focus {
 	margin:7px 0 0 15px;
 }

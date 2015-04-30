@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/live_matches' => 'home#live_matches'
 
   get 'users', to: 'users#index'
+
   resources :match_tokens, only: [:edit, :update]
   resources :matches do
     member do
@@ -23,4 +24,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks", :registrations => "registrations"}
 
   get "user/:username" => "users#show", :constraints => { username: /[^:]+/ }
+  get "users/:username" => "users#show", :constraints => { username: /[^:]+/ }, :as => 'user'
+  put "users/:id" => "users#update", :constraints => { username: /[^:]+/ }
+
+
 end

@@ -84,7 +84,10 @@
         .panel.panel-default
           .panel-heading= "Descripción de " + @user.simple_name
           .panel-body
-            %i (pronto)
+            - if @user.id == current_user.id
+              = best_in_place @user, :description, :as => :textarea, ok_button: 'Grabar descripción.', width: 1000
+            - else
+              = @user.description
         .panel.panel-default.target
           .panel-heading{:contenteditable => "false"} Estadísticas
           .panel-body

@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
+  validates_length_of :description, :minimum => 10, :maximum => 200, :allow_blank => false
+
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

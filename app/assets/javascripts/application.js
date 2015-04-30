@@ -16,6 +16,7 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/jquery.dataTables
 //= require_tree .
+//= require best_in_place
 //= bootstrap.js
 //= facebox.js
 //= fancySelect.js
