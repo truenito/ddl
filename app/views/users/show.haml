@@ -26,7 +26,10 @@
           %li.list-group-item.text-right
             %span.pull-left
               %strong Nombre Real:
-            Gabriel Danilo González Mañaná
+            - if @user.facebook_authed?
+              = @user.real_name
+            - else
+              %i Aún no validado.
           %li.list-group-item.text-right
             %span.pull-left
               %strong Membresía:
