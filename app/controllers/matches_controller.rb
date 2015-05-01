@@ -111,11 +111,9 @@ def index
 
   def join
     @match = Match.find(params[:id])
+
     if @match.joinable? && current_user.joinable?
       match_token = MatchToken.new(user_id: current_user.id, match_id: params[:id])
-    else
-      flash[:error] = 'Usted no puede entrar a esta partida.'
-      return redirect_to root_path
     end
 
     redirect_to user_omniauth_authorize_path(:facebook) unless current_user.joinable?
