@@ -18,7 +18,7 @@
               %span.pool-number
                 = i + 1
               %span.designation
-                = link_to(player.name, '#')
+                = link_to(player.name, "/user/#{player.regular_name}")
                 %br
                 = player.real_name
             .location
