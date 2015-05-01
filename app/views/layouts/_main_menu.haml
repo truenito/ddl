@@ -4,7 +4,7 @@
       - if current_user
         %li
           .user-menu-data
-            = link_to("user/#{current_user.name}") do
+            = link_to("/user/#{current_user.name}") do
               %h5{style: 'color: white; -webkit-text-stroke: 1px black; padding: 0px;'}= current_user.decorate.name
             .user-rating= "#{current_user.rating} RATING"
             .user-rating= "W: #{current_user.win_count} / L: #{current_user.lose_count}"
