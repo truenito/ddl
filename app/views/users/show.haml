@@ -33,10 +33,26 @@
           %li.list-group-item.text-right
             %span.pull-left
               %strong Membresía:
-            - if @user.admin? && @user.donator?
-              Admin/Donator
+            - if @user.regular_name == 'truenito'
+              League Developer
+              %br
+              Admin
+              %br
+              Donador
+              %br
+              = image_tag('developer.png')
+              = image_tag('admin.png')
+              = image_tag('money-badge.png')
+            - elsif @user.admin? && @user.donator?
+              Admin
+              %br
+              Donador
+              %br
+              = image_tag('admin.png')
+              = image_tag('money-badge.png')
             - elsif @user.donator?
-              Donator
+              Donador
+              = image_tag('money-badge.png')
             - else
               Jugador
         .panel.panel-default
