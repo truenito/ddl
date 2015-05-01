@@ -1,25 +1,22 @@
-//	TABLE OF CONTENTS
-//	---------------------------
-//	 01. Preloader
-//	 02. SideBar
-//   03. Fancy Select
-//	 04. Testimonial
-//   05. Animations
-//  ====================================================================
-
 (function() {
 	"use strict";
 
-	// --------------------- 01 Preloader ---------------------
-	// --------------------------------------------------------
+	// DDL Shortcuts
+	$.Shortcuts.add({
+    type: 'up',
+    mask: 'Shift+M',
+    handler: function() {
+    	$('.sb-toggle-left').click();
+    }
+	});
+	$.Shortcuts.start();
+
 
 	$(window).load(function() {
 	$("#loader").fadeOut();
 	$("#mask").delay(0).fadeOut("slow");
 	});
 
-	// --------------------- 02 SideBar ---------------------
-	// --------------------------------------------------------
 
 	$(document).ready(function() {
 		$.slidebars({
@@ -30,16 +27,12 @@
 		});
 	});
 
-	// --------------------- 03 Fancy Select ---------------------
-	// --------------------------------------------------------
 
 	$(document).ready(function() {
 		$('#basic-selecter').fancySelect();
 		$('#basic-selecter1').fancySelect();
 	});
 
-	// --------------------- 04 Testimonial ---------------------
-	// --------------------------------------------------------
 
 	$(document).ready(function() {
 		$('.campers-all').find('li').click(function(e) {
@@ -53,15 +46,11 @@
 		});
 	});
 
-	// --------------------- 06 Overview Toggle ---------------------
-	// --------------------------------------------------------
 
 	$('.overview-btn').click(function(e) {
 		$('.overview-detail').slideToggle();
 	});
 
-	// -------------------- 07 Animations ---------------------
-	// --------------------------------------------------------
 	$(function(){
 
 		$('.animated').appear(function() {

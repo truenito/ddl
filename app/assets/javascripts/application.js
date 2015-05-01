@@ -28,3 +28,4 @@
 //= styleswitcher.js
 //= jBox.js
 //= ddlNotifications.js
+//= jquery.shortcuts.js

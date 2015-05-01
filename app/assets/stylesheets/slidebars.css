@@ -106,24 +106,24 @@ html.sb-static .sb-slidebar,
 	.sb-slidebar {
 		width: 30%;
 	}
-	
+
 	.sb-width-thin {
 		width: 15%;
 	}
-	
+
 	.sb-width-wide {
 		width: 45%;
 	}
 
 @media (max-width: 480px) { /* Slidebar widths on extra small screens. */
 	.sb-slidebar {
-		width: 70%;
+		width: 60%;
 	}
-	
+
 	.sb-width-thin {
 		width: 55%;
 	}
-	
+
 	.sb-width-wide {
 		width: 85%;
 	}
@@ -131,13 +131,13 @@ html.sb-static .sb-slidebar,
 
 @media (min-width: 481px) { /* Slidebar widths on small screens. */
 	.sb-slidebar {
-		width: 55%;
+		width: 35%;
 	}
-	
+
 	.sb-width-thin {
 		width: 40%;
 	}
-	
+
 	.sb-width-wide {
 		width: 70%;
 	}
@@ -145,13 +145,13 @@ html.sb-static .sb-slidebar,
 
 @media (min-width: 768px) { /* Slidebar widths on medium screens. */
 	.sb-slidebar {
-		width: 40%;
+		width: 25%;
 	}
-	
+
 	.sb-width-thin {
 		width: 25%;
 	}
-	
+
 	.sb-width-wide {
 		width: 55%;
 	}
@@ -159,13 +159,13 @@ html.sb-static .sb-slidebar,
 
 @media (min-width: 992px) { /* Slidebar widths on large screens. */
 	.sb-slidebar {
-		width: 30%;
+		width: 20%;
 	}
-	
+
 	.sb-width-thin {
 		width: 15%;
 	}
-	
+
 	.sb-width-wide {
 		width: 45%;
 	}
@@ -173,13 +173,13 @@ html.sb-static .sb-slidebar,
 
 @media (min-width: 1200px) { /* Slidebar widths on extra large screens. */
 	.sb-slidebar {
-		width: 20%;
+		width: 15%;
 	}
-	
+
 	.sb-width-thin {
 		width: 5%;
 	}
-	
+
 	.sb-width-wide {
 		width: 35%;
 	}
@@ -201,7 +201,7 @@ html.sb-static .sb-slidebar,
 /* --------------------
  * 005 - Helper Classes
  */
- 
-.sb-hide { 
+
+.sb-hide {
 	display: none; /* Optionally applied to control classes when Slidebars is disabled over a certain width. */
 }
