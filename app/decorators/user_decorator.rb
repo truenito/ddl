@@ -4,7 +4,7 @@ class UserDecorator < Draper::Decorator
   def name
     pretty_name = ''
     pretty_name = h.content_tag(:span, object.name)
-    pretty_name << h.image_tag('money.png', {class: 'donator-icon', alt: '(donator)', title: '(donator)'} ) if object.donator
+    pretty_name << h.image_tag('money.png', {class: 'mini-badge-icon', alt: 'Ha donado', title: 'Ha donado'} ) if object.donator
     pretty_name
   end
 
@@ -25,7 +25,7 @@ class UserDecorator < Draper::Decorator
     elsif object.real_name.present? &&  object.real_last_name
       markup = object.real_name + " " + object.real_last_name
     end
-    markup.html_safe
+    h.content_tag(:i, markup.html_safe)
   end
 
   def wins_and_losses

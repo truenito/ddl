@@ -13,6 +13,11 @@ module UserPrivileges
     token.any?
   end
 
+  def reported?(match_id)
+    token = self.match_tokens.where(match_id: match_id, user_id: self.id).first
+    token.reported?
+  end
+
   # helpers
 
   def current_match_token_id

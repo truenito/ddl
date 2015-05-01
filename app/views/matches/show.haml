@@ -33,7 +33,12 @@
                 %span.prof-photo
                   = link_to(image_tag('avatars/radiant.png'), "/user/#{player.regular_name}")
                 %span.designation
-                  = link_to(player.name, "/user/#{player.regular_name}")
+                  - if player.reported?(@match)
+                    = link_to("/user/#{player.regular_name}") do
+                      = player.name
+                      = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
+                  - else
+                    = link_to(player.name, "/user/#{player.regular_name}")
                   %br
                   = player.real_name
               .location
