@@ -63,9 +63,9 @@ def index
     respond_to do |format|
       if @match.save
         flash[:success] = 'La partida se creó correctamente.'
-        redirect_to match_path(@match.id)
+        format.html { redirect_to match_path(@match.id) }
       else
-        render 'new'
+         format.html { render 'new' }
       end
     end
   end
