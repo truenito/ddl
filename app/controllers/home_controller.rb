@@ -8,7 +8,7 @@ class HomeController < ActionController::Base
       most_creations: User.most_creations
     } if User.all.any?
 
-    @stats = { match_count: Match.count,
+    @stats = { match_count: Match.where(status: 'ended').count,
       user_count: User.count,
       last_match: Match.last.created_at.strftime("%d/%m/%Y")
     } if Match.all.any?

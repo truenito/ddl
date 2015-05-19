@@ -14,7 +14,7 @@ class Match < ActiveRecord::Base
   end
 
   # Balance algorithm (team distribution).
-  # TODO @truenito: Split into little methods and make it cleaner.
+  # TODO @truenito: Divide into smaller methods and make it cleaner.
   def balance_players(players_pool_array)
     balanced = false
     min_rating_separation = 3
@@ -25,30 +25,20 @@ class Match < ActiveRecord::Base
       players_pool_array.shuffle!
       shuffles += 1
       radiant_team_array, radiant_team_avg = players_pool_array.first(5), 0
-      dire_radiant_teamrray, dire_radiant_teamvg = players_pool_array.last(5), 0
+      dire_team_array, dire_radiant_team_avg = players_pool_array.last(5), 0
 
-      radiant_team_array.each do |player|
-        radiant_team_avg += player[1]
-      end
+      radiant_team_array.each{|player| radiant_team_avg += player[1] }
+      dire_team_array.each{|player| dire_radiant_team_avg += player[1] }
 
-      dire_radiant_teamrray.each do |player|
-        dire_radiant_teamvg += player[1]
-      end
-
-      (radiant_team_avg - dire_radiant_teamvg).abs < min_rating_separation ? balanced = true : balanced = false
+      (radiant_team_avg - dire_radiant_team_avg).abs < min_rating_separation ? balanced = true : balanced = false
       if shuffles > 1000
         min_rating_separation += 3
         shuffles = 0
       end
     end
 
-    radiant_team_array.each do |player|
-      radiant_team << User.find(player.first)
-    end
-
-    dire_radiant_teamrray.each do |player|
-      dire_team << User.find(player.first)
-    end
+    radiant_team_array.each{|player| radiant_team << User.find(player.first)}
+    dire_team_array.each{|player| dire_team << User.find(player.first)}
 
     return { radiant_team: radiant_team, dire_team: dire_team}
   end
