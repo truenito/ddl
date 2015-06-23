@@ -5,7 +5,7 @@ class CreateMatchTokens < ActiveRecord::Migration
       t.integer :user_id
       t.boolean :result
       t.boolean :captain
-      t.leaver :boolean, default: false
+      t.boolean :leaver, default: false
 
       t.timestamps null: false
     end

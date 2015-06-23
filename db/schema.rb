@@ -16,35 +16,25 @@ ActiveRecord::Schema.define(version: 20150430215029) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "leavers", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "match_id"
-    t.integer  "rating_loss"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "match_tokens", force: :cascade do |t|
     t.integer  "match_id"
     t.integer  "user_id"
     t.string   "result"
     t.boolean  "captain"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "leaver",     default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "matches", force: :cascade do |t|
     t.integer  "steam_id"
-    t.integer  "radiant_team_id"
-    t.integer  "dire_team_id"
     t.string   "password"
     t.string   "name"
-    t.string   "status",              default: "waiting"
-    t.integer  "rating_differential"
+    t.string   "status",      default: "waiting"
     t.integer  "creator_id"
     t.boolean  "winner_team"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -95,7 +85,7 @@ ActiveRecord::Schema.define(version: 20150430215029) do
     t.integer  "timezone"
     t.string   "facebook_link"
     t.boolean  "donator"
-    t.integer  "donation_count"
+    t.integer  "donation_count",         default: 0
     t.text     "description",            default: "Usuario sin descripción."
   end
 

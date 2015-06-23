@@ -46,7 +46,7 @@ class Match < ActiveRecord::Base
   # Match commit interface.
   def commit_match
     if committable?
-      result = @freq.reject{|k,v|v < 6}.keys.first # get the result with the 6 votes.
+      result = @freq.reject{|k,v|v < 6}.keys.first # get the result with 6 votes.
       if result == 'radiant' || result == 'dire'
         winner_team = self.teams.where(side: result)
         loser_team = (self.teams - winner_team).first
