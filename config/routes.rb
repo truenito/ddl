@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Static pages
   get '/report' => 'pages#report'
   get '/contact' => 'pages#contact'
-  get '/rules' => 'pages#rules'
+  get '/reglas' => 'pages#rules'
   get '/nosotros' => 'pages#about'
   get '/match_info' => 'matches#match_info'
   get '/live_matches' => 'home#live_matches'

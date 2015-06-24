@@ -18,11 +18,11 @@
         %li
           = link_to('JUGADORES', users_path)
         %li
-          = link_to('REGLAS', rules_path)
+          = link_to('REGLAS', reglas_path, class: 'waiting')
         %li
           = link_to('NOSOTROS', nosotros_path)
         %li
-          = link_to('REPORTAR', '#')
+          = link_to('REPORTAR', '#', {style: 'color: #7c7c7c;'})
         %li
           = link_to('CONTACTO', '#')
       %p.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
