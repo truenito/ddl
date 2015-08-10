@@ -1,0 +1,81 @@
+- if @match.ended? && @match.users_and_stats.nil?
+  .col-md-8.col-md-offset-2
+    #match-info-alert{style: "background-color: black; padding: 20px 30px; margin-top:30px;"}
+      %p
+        %i.playing Esta partida es antigua (alpha) por tanto los stats de los jugadores (rating/win/loss etc) para esta partida se reflejan al día de hoy y NO representan los stats al tiempo en que se jugó esta partida.
+      %p
+        %i.playing Para partidas futuras ya se ha implementado esta funcionalidad.
+.col-md-8.col-md-offset-2
+  %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Average MMR:
+      = @radiant_team_avg
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Win:
+      +
+      = @rating_change[:dire]
+      ="/"
+      ="-"
+      Lose:
+      = @rating_change[:radiant]
+  .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+      %ul.job-listings
+        - @radiant_team.users.decorate.each do |player|
+          %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+            .title
+              %span.prof-photo
+                = link_to(image_tag('avatars/radiant.png'), "/user/#{player.regular_name}")
+              %span.designation
+                - if player.reported?(@match)
+                  = link_to("/user/#{player.regular_name}") do
+                    = player.name
+                    = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
+                - else
+                  = link_to(player.name, "/user/#{player.regular_name}")
+            .location
+              rating:
+              = player.rating
+            .location{:class => ("captain" if @radiant_team.captain_id == player.id)}= @radiant_team.captain_id == player.id ? "CAPTAIN" : "player"
+            .create= player.status
+            .create= "W:#{player.win_count} / L:#{player.lose_count}"
+.col-md-8.col-md-offset-2
+  %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Average MMR:
+      = @dire_team_avg
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Win:
+      +
+      = @rating_change[:radiant]
+      = "/"
+      ="-"
+      Lose:
+      = @rating_change[:dire]
+  .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+      %ul.job-listings
+        - @dire_team.users.decorate.each do |player|
+          %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+            .title
+              %span.prof-photo
+                = link_to(image_tag('avatars/dire.png'), "/user/#{player.regular_name}")
+              %span.designation
+                - if player.reported?(@match)
+                  = link_to("/user/#{player.regular_name}") do
+                    = player.name
+                    = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
+                - else
+                  = link_to(player.name, "/user/#{player.regular_name}")
+            .location
+              rating:
+              = player.rating
+            .location{:class => ("captain" if @dire_team.captain_id == player.id)}= @dire_team.captain_id == player.id ? "CAPTAIN" : "player"
+            .create= player.status
+            .create= "W:#{player.win_count} / L:#{player.lose_count}"

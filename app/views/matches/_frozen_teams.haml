@@ -1,0 +1,70 @@
+.col-md-8.col-md-offset-2
+  %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Average MMR:
+      = @radiant_team_avg
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Win:
+      +
+      = @rating_change[:dire]
+      ="/"
+      ="-"
+      Lose:
+      = @rating_change[:radiant]
+  .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+      %ul.job-listings
+        - @radiant_team.each do |player|
+          %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+            .title
+              %span.prof-photo
+                = link_to(image_tag('avatars/radiant.png'), "/user/#{player['name']}")
+              %span.designation
+                = link_to("/user/#{player['name']}") do
+                  = player['name']
+                  = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
+                %br
+                = player['name']
+            .location
+              rating:
+              = player['rating']
+            .location{:class => ("captain" if @radiant_captain_id == player['id'].to_i)}= @radiant_captain_id == player['id'].to_i ? "CAPTAIN" : "player"
+            .create= player['status']
+            .create= "W:#{player['win_count'].to_i} / L:#{player['lose_count'].to_i}"
+.col-md-8.col-md-offset-2
+  %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Average MMR:
+      = @dire_team_avg
+  .col-md-3.pull-right{style: 'padding: 0;'}
+    %h6{style: 'text-align: right;'}
+      Win:
+      +
+      = @rating_change[:radiant]
+      = "/"
+      ="-"
+      Lose:
+      = @rating_change[:dire]
+  .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+    .clearfix
+    .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+      %ul.job-listings
+        - @dire_team.each do |player|
+          %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+            .title
+              %span.prof-photo
+                = link_to(image_tag('avatars/dire.png'), "/user/#{player['name']}")
+              %span.designation
+                = link_to("/user/#{player['name']}") do
+                  = player['name']
+                  = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
+            .location
+              rating:
+              = player['rating']
+            .location{:class => ("captain" if @dire_captain_id == player['id'].to_i)}= @dire_captain_id == player['id'].to_i ? "CAPTAIN" : "player"
+            .create= player['status']
+            .create= "W:#{player['win_count'].to_i} / L:#{player['lose_count'].to_i}"

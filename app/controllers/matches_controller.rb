@@ -138,11 +138,11 @@ def index
     @dire_captain_id = @dire_team.captain_id if match.teams.any?
     players = match.users.order("match_tokens.created_at ASC")
     @players = players.decorate
-    if match.ended?
+    if match.ended? && !match.users_and_stats.nil?
       frozen_users_and_stats(match)
     end
     if @radiant_team.present?
-      if match.ended?
+      if match.ended? && !match.users_and_stats.nil?
         sum = 0
         radiant_team_sum = (@radiant_team.each{|u| sum += u["rating"].to_i})
         @radiant_team_avg = sum  / 5
