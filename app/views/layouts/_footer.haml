@@ -27,8 +27,7 @@
           = link_to('BETA Season', '#', {style: 'color: #7c7c7c;'})
 
       %p.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"}
-        \&copy; 2015
+        \&copy;
+        = DateTime.now.strftime("%d/%m/%Y")
         = succeed "." do
-          Dominican DotA League
-          %br
-          desarrollado por <a target='_blank' href='http://estilopanda.com'>estilopanda.com</a>, derechos reservados.
+          Dominican DotA League, desarrollado por <a target='_blank' href='http://estilopanda.com'>estilopanda.com</a>

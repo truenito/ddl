@@ -79,23 +79,26 @@
       %hr
         %ul.statistic-val
           %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "200"}
-            .stastic-single
-              .ico-conts
-                %span= @stats[:match_count]
-                %i.fi-heart
-              %h7 Partidas finalizadas.
+            = link_to(matches_path, style: 'color: black !important; text-decoration: none;') do
+              .stastic-single
+                .ico-conts
+                  %span= @stats[:match_count]
+                  %i.fi-heart
+                %h7 Partidas finalizadas
           %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "400"}
-            .stastic-single
-              .ico-conts
-                %span= @stats[:last_match]
-                %i.fi-address-book
-              %h7  Última partida.
+            = link_to(matches_path, style: 'color: black !important; text-decoration: none;') do
+              .stastic-single
+                .ico-conts
+                  %span= @stats[:last_match]
+                  %i.fi-address-book
+              %h7  Última partida
           %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "1000"}
-            .stastic-single
-              .ico-conts
-                %span= @stats[:user_count]
-                %i.fi-torso-business
-              %h7 Miembros
+            = link_to(users_path, style: 'color: black !important; text-decoration: none;') do
+              .stastic-single
+                .ico-conts
+                  %span= @stats[:user_count]
+                  %i.fi-torso-business
+                %h7 Miembros
 %section.got-a-question
   .container
     .row.clearfix
