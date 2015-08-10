@@ -133,9 +133,9 @@ def index
   def set_match_entities(match)
     @creator = User.find(match.creator_id)
     @radiant_team = match.teams.first
-    @radiant_captain_id = @radiant_team.captain_id
+    @radiant_captain_id = @radiant_team.captain_id if match.teams.any?
     @dire_team = match.teams.last
-    @dire_captain_id = @dire_team.captain_id
+    @dire_captain_id = @dire_team.captain_id if match.teams.any?
     players = match.users.order("match_tokens.created_at ASC")
     @players = players.decorate
     if match.ended?
