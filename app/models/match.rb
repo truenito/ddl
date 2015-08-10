@@ -1,16 +1,19 @@
 class Match < ActiveRecord::Base
+
   has_many :users, :through => :match_tokens
   has_many :teams
   has_many :match_tokens
 
-  validates_length_of :name, :minimum => 5, :maximum => 90, :allow_blank => false
-  validates_length_of :password, :minimum => 3, :maximum => 10, :allow_blank => false
-
   def create_teams
-    players_pool_array = self.users.pluck(:user_id, :rating)
-    balanced_teams_hash = balance_players(players_pool_array)
+    # Get relevant players data and balance for team creation
+    players_pool = self.users.pluck(:user_id, :rating)
+    balanced_teams_hash = balance_players(players_pool)
 
+    # Create real teams for match with the balanced team hash.
     Team.create_for_match(balanced_teams_hash, self.id)
+    save_users_and_attributes(:id, :name, :rating, :status,
+                              :facebook_link, :donator,
+                              :win_count, :lose_count)
   end
 
   # Balance algorithm (team distribution).
@@ -30,7 +33,8 @@ class Match < ActiveRecord::Base
       radiant_team_array.each{|player| radiant_team_avg += player[1] }
       dire_team_array.each{|player| dire_radiant_team_avg += player[1] }
 
-      (radiant_team_avg - dire_radiant_team_avg).abs < min_rating_separation ? balanced = true : balanced = false
+      (radiant_team_avg - dire_radiant_team_avg).
+      abs < min_rating_separation ? balanced = true : balanced = false
       if shuffles > 1000
         min_rating_separation += 3
         shuffles = 0
@@ -66,11 +70,11 @@ class Match < ActiveRecord::Base
     winner_team.users.each{|u| c = u.win_count + 1; u.win_count = c; u.save!}
     loser_team.users.each{|u| c = u.lose_count + 1; u.lose_count = c; u.save!}
 
-    # update ratings.
+    # Updates ratings.
     rating_change = 0
     rating_change = (Team.rating_change((winner_team.users.sum(:rating) / 5), (loser_team.users.sum(:rating) / 5)))
 
-    # logic is: Depending on who won/lost substract corresponding amount from both teams.
+    # Logic: Depending on who won/lost substract corresponding amount from both teams.
     if result == 'radiant'
       winner_team.users.each{|u| c = u.rating + rating_change[:dire]; u.rating = c; u.save!}
       loser_team.users.each{|u| c = u.rating - rating_change[:dire]; u.rating = c; u.save!}
@@ -80,6 +84,7 @@ class Match < ActiveRecord::Base
     end
   end
 
+  # Saves match result information for teams and sets "ended" status.
   def finalize_match(winner_team, result)
     if result == 'radiant'
       winner_team_bool = false
@@ -93,6 +98,7 @@ class Match < ActiveRecord::Base
     self.save!
   end
 
+  # Cancels a match and unties users from it.
   def cancel_match
     self.match_tokens.destroy_all!
     self.status = 'canceled'
@@ -101,22 +107,32 @@ class Match < ActiveRecord::Base
     self.save!
   end
 
+  # Saves frozen user attributes for future reference i.e: actual rating at the
+  # time the match happened.
+  def save_users_and_attributes(*stats)
+    players_pool_with_stats = self.users.select(stats)
+    self.users_and_stats  = players_pool_with_stats.as_json
+  end
+
   # match statuses/interactions.
   def votes_number
     self.match_tokens.select{|token| token.result != nil}.count
   end
 
+  # Check if match is joinable by players/waiting for players.
   def joinable? ; self.status == 'waiting'; end
   alias_method :waiting?, :joinable?
-
+  # Check if match is being played at the moment.
   def playing? ; self.status == 'playing' ; end
-
+  # Check if  match is canceled.
   def canceled? ; self.status == 'canceled'; end
-
+  # Check if match has ended.
   def ended? ; self.status == 'ended'; end
-
+  # Check if match is leaveable at the moment.
   def leavable? ; !(self.status == 'playing'); end
 
+  # Checks if the match has ended and if a team has enough result votes to
+  # commit it (save the results of the match and end it).
   def committable?
     return false if self.status == 'ended'
     voted_results = self.match_tokens.map(&:result)

@@ -131,16 +131,37 @@ def index
   end
 
   def set_match_entities(match)
+    @creator = User.find(match.creator_id)
+    @radiant_team = match.teams.first
+    @radiant_captain_id = @radiant_team.captain_id
+    @dire_team = match.teams.last
+    @dire_captain_id = @dire_team.captain_id
     players = match.users.order("match_tokens.created_at ASC")
     @players = players.decorate
-    @creator = User.find(@match.creator_id)
-    @radiant_team = match.teams.first
-    @dire_team = match.teams.last
-
-    if @radiant_team.present?
-      @radiant_team_avg = (@radiant_team.users.sum(:rating) / @radiant_team.users.count)
-      @dire_team_avg = (@dire_team.users.sum(:rating) / @dire_team.users.count)
+    if match.ended?
+      frozen_users_and_stats(match)
     end
+    if @radiant_team.present?
+      if match.ended?
+        sum = 0
+        radiant_team_sum = (@radiant_team.each{|u| sum += u["rating"].to_i})
+        @radiant_team_avg = sum  / 5
+        sum = 0
+        dire_team_sum = (@dire_team.each{|u| sum += u["rating"].to_i})
+        @dire_team_avg = sum  / 5
+      else
+        @radiant_team_avg = (@radiant_team.users.sum(:rating) / @radiant_team.users.count)
+        @dire_team_avg = (@dire_team.users.sum(:rating) / @dire_team.users.count)
+      end
+    end
+  end
+
+  def frozen_users_and_stats(match)
+    radiant_team_str_ids = @radiant_team.users.pluck(:id).map!(&:to_s)
+    @radiant_team = match.users_and_stats.select{|u| radiant_team_str_ids.include? u["id"]}
+
+    dire_team_str_ids = @dire_team.users.pluck(:id).map!(&:to_s)
+    @dire_team = match.users_and_stats.select{|u| dire_team_str_ids.include? u["id"]}
   end
 
   private
