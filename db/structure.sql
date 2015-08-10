@@ -127,7 +127,7 @@ CREATE TABLE matches (
     winner_team boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    users_and_stats hstore[] DEFAULT '{}'::hstore[]
+    users_and_stats hstore[]
 );
 
 
