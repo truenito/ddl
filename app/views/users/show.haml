@@ -40,30 +40,21 @@
               %br
               Donador
               %br
-              = image_tag('developer.png')
-              = image_tag('admin.png')
-              = image_tag('money-badge.png')
+              = image_tag('developer.png', width: 30)
+              = image_tag('admin.png', width: 30)
+              = image_tag('money-badge.png', width: 30)
             - elsif @user.admin? && @user.donator?
               Admin
               %br
               Donador
               %br
-              = image_tag('admin.png')
-              = image_tag('money-badge.png')
+              = image_tag('admin.png', width: 30)
+              = image_tag('money-badge.png', width: 30)
             - elsif @user.donator?
               Donador
-              = image_tag('money-badge.png')
+              = image_tag('money-badge.png', width: 30)
             - else
               Jugador
-        .panel.panel-default
-          .panel-heading
-            Autenticado con Facebook?
-          .panel-body
-            %i.fa.fa-check-square{:style => "color:green"}
-            - if @user.facebook_authed?
-              Si, estoy autenticado con Facebook.
-            - else
-              No me he autenticado con Facebook aún :(
         - if @user.facebook_authed?
           .panel.panel-default
             .panel-heading
@@ -78,11 +69,11 @@
           %li.list-group-item.text-right
             %span.pull-left
               %strong Ganados
-            = "-"
+            = @user.win_count
           %li.list-group-item.text-right
             %span.pull-left
               %strong Perdidos
-            = "-"
+            = @user.lose_count
           %li.list-group-item.text-right
             %span.pull-left
               %strong Creados
@@ -90,7 +81,16 @@
           %li.list-group-item.text-right
             %span.pull-left
               %strong Donado
-            = "-"
+            US $
+            =  @user.donation_count
+        .panel.panel-default
+          .panel-heading
+          .panel-body
+            %i.fa.fa-check-square{:style => "color:green"}
+            - if @user.facebook_authed?
+              %i Autenticado con Facebook
+            - else
+              %i NO autenticado con Facebook aún :(
         / .panel.panel-default
         /   .panel-heading Soon
         /   .panel-body
@@ -104,37 +104,36 @@
           .panel-heading= "Descripción de " + @user.simple_name
           .panel-body
             - if current_user && @user.id == current_user.id
-              = best_in_place @user, :description, :as => :textarea, ok_button: 'Grabar descripción.', width: 1000
+              = best_in_place @user, :description, :as => :textarea, ok_button: 'Guardar.', width: 1000
             - else
               = @user.description
         .panel.panel-default.target
           .panel-heading{:contenteditable => "false"} Estadísticas
           .panel-body
             .row
-              .col-md-4
+              .col-md-4.centered
                 .thumbnail
                   = image_tag('win-rate.png')
                   .caption
                     %h3
                       WIN RATE
+                    %p{style: "font-size: 22px;"}= "#{((@user.win_count.to_f / (@user.win_count.to_f + @user.lose_count.to_f)) * 100).to_i}%"
                     %p
-                      %i (soon)
-                    %p
-              .col-md-4
+              .col-md-4.centered
                 .thumbnail
                   = image_tag('rating.png')
                   .caption
                     %h3
                       RATING
-                    %p= @user.rating
+                    %p{style: "font-size: 22px;"}= @user.rating
                     %p
-              .col-md-4
+              .col-md-4.centered
                 .thumbnail
                   = image_tag('games-played.png')
                   .caption
                     %h3
                       PARTIDAS
-                    %p= "Ha jugado en #{@played_games.count} partidas."
+                    %p{style: "font-size: 22px;"}= "#{@played_games.count}"
                     %p
         .panel.panel-default
           .panel-heading Úlimas Partidas
