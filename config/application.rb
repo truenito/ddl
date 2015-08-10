@@ -30,5 +30,8 @@ module Ddl
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     config.assets.paths << "#{Rails.root}/app/assets/audio"
 
+    # change schema dump format to enable postgre's hstore extension.
+    config.active_record.schema_format = :sql
+
   end
 end
