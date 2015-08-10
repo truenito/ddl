@@ -6,4 +6,8 @@ class PagesController < ApplicationController
   def report; end
 
   def contact; end
+
+  # seasons
+  def season0; end
+
 end

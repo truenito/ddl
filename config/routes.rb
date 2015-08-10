@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get '/match_info' => 'matches#match_info'
   get '/live_matches' => 'home#live_matches'
 
+    # Seasons
+    get '/seasons/0' => 'pages#season0'
+
+
   get 'users', to: 'users#index'
 
   resources :match_tokens, only: [:edit, :update]
