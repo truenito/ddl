@@ -14,6 +14,7 @@ class UsersController < ActionController::Base
     played_games = user_matches.select{|x| x.status == 'ended'}
     played_games = played_games.sort_by{ |x| x.created_at}.reverse
     @played_games = MatchDecorator.decorate_collection(played_games)
+    @created_count = Match.where(creator_id: @user).count
   end
 
   def update
