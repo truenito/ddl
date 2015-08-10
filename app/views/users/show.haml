@@ -120,6 +120,8 @@
                     - if @user.win_count + @user.lose_count > 0
                       %p{style: "font-size: 22px;"}= "#{((@user.win_count.to_f / (@user.win_count.to_f + @user.lose_count.to_f)) * 100).to_i}%"
                       %p
+                    - else
+                      0%
               .col-md-4.centered
                 .thumbnail
                   = image_tag('rating.png')
