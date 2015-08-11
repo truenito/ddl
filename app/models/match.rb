@@ -100,11 +100,11 @@ class Match < ActiveRecord::Base
 
   # Cancels a match and unties users from it.
   def cancel_match
-    self.match_tokens.destroy_all!
     self.status = 'canceled'
     self.winner_team = nil
-
     self.save!
+
+    self.match_tokens.destroy_all
   end
 
   # Saves frozen user attributes for future reference i.e: actual rating at the
@@ -134,7 +134,7 @@ class Match < ActiveRecord::Base
   # Checks if the match has ended and if a team has enough result votes to
   # commit it (save the results of the match and end it).
   def committable?
-    return false if self.status == 'ended'
+    return false if self.status == 'ended' || self.status == 'canceled'
     voted_results = self.match_tokens.map(&:result)
     @freq = Hash.new(0)
     voted_results.each do |v|
