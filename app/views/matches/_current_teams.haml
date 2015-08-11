@@ -40,8 +40,6 @@
               rating:
               = player.rating
             .location{:class => ("captain" if @radiant_team.captain_id == player.id)}= @radiant_team.captain_id == player.id ? "CAPTAIN" : "player"
-            .create= player.status
-            .create= "W:#{player.win_count} / L:#{player.lose_count}"
 .col-md-8.col-md-offset-2
   %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
   .col-md-3.pull-right{style: 'padding: 0;'}
@@ -77,5 +75,3 @@
               rating:
               = player.rating
             .location{:class => ("captain" if @dire_team.captain_id == player.id)}= @dire_team.captain_id == player.id ? "CAPTAIN" : "player"
-            .create= player.status
-            .create= "W:#{player.win_count} / L:#{player.lose_count}"

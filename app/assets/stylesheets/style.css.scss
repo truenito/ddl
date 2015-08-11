@@ -161,8 +161,8 @@ img.mini-badge-icon-circle{
 }
 
 .profile-pic img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 
 .designation span{
@@ -212,7 +212,7 @@ td.position{
 .match-result-radio{
   font-size: 25px;
   padding-bottom: 10px;
-  padding: 15px 0px;
+  padding: 5px 0px;
 }
 
 /* Notifications for jBox */
@@ -1167,8 +1167,8 @@ section.main{
 	padding:0 0 0 0;
 	margin:0 0 0 0;
 	float:left;
-	width:60px;
-	height:60px;
+	width:30px;
+	height:30px;
 	display:block;
 	background:#e3eeef;
 }
@@ -2772,4 +2772,21 @@ h1 {
 	font-size:46px;
 }
 
+}
+
+.input-button {
+  padding: 12px 40px;
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  border: 0;
+  background: #130a13;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 4px;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
 }
