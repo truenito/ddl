@@ -23,12 +23,12 @@
           .location= "status: #{@match.pretty_status}".html_safe
           - if current_user && @match.users.exists?(current_user)
             .location{style: 'text-transform: none !important;'}= "pass: #{@match.password}"
-          .create= @match.time_ago
+          .location= @match.time_ago
           - if @match.winner_team.nil?
             .create
               %span{style: 'color: rgb(181, 62, 76);'} sin decisión
           - else
-            .create= @match.winner_team == 0 ? 'Radiant' : 'Dire'
+            .create= @match.winner_team == 0 ? 'Dire' : 'Radiant'
 - unless @new_players_count.nil? || @new_players_count.zero?
   - if @new_players_count == 1
     :javascript
