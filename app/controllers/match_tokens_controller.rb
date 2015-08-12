@@ -16,22 +16,27 @@ class MatchTokensController < ActionController::Base
   end
 
   def update
-    @match_token = MatchToken.find params[:id]
-    @match = @match_token.match
-
-    respond_to do |format|
-      if @match_token.update_attributes match_token_params
-        @match.commit_match
-        flash[:success] = 'Su voto fué procesado.'
-        if @match.match_tokens.any?
-          format.html { redirect_to edit_match_token_path @match_token }
+    if MatchToken.exists?(id: params[:id])
+      @match_token = MatchToken.find params[:id]
+      @match = @match_token.match
+      respond_to do |format|
+        if @match.status == 'playing'
+          if @match_token.update_attributes match_token_params
+            @match.commit_match
+            flash[:success] = 'Su voto fué procesado.'
+            format.html { redirect_to edit_match_token_path @match_token }
+          else
+            flash[:error] = 'Hubo un error procesando su voto, contacte administración.'
+            format.html { redirect_to edit_match_token_path @match_token }
+          end
         else
-          format.html { redirect_to matches_path }
+          flash[:success] = 'La partida ya tiene los votos suficientes, gracias!'
+          format.html {redirect_to matches_path }
         end
-      else
-        flash[:error] = 'Este match no puede ser procesado.'
-        format.html { render action: "edit" }
       end
+    else
+      flash[:error] = 'Este match ya fué cancelado.'
+      redirect_to root_path
     end
   end
 
