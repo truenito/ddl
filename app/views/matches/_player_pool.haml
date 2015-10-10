@@ -2,7 +2,7 @@
   %h3.heading-centered player pool
   - if current_user && !current_user.match_tokens.where(result: nil).any?
     - if !current_user.facebook_authed?
-      .pull-right= link_to('Autenticar FB', join_match_path(@match.id))
+      .pull-right= link_to('Autenticar Facebook', join_match_path(@match.id))
     - elsif @match.status != 'canceled'
       .pull-right= link_to('Entrar al juego +', join_match_path(@match))
   .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
