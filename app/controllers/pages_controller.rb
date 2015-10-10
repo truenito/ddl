@@ -9,5 +9,4 @@ class PagesController < ApplicationController
 
   # seasons
   def season0; end
-
 end

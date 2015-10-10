@@ -2,7 +2,7 @@ class UsersController < ActionController::Base
   layout 'application'
 
   def index
-    users = User.all.sort_by{|u| u.rating}.reverse
+    users = User.all.sort_by(&:rating).reverse
     @users = UserDecorator.decorate_collection(users)
   end
 
@@ -11,8 +11,8 @@ class UsersController < ActionController::Base
     @user = user.decorate
 
     user_matches = user.matches
-    played_games = user_matches.select{|x| x.status == 'ended'}
-    played_games = played_games.sort_by{ |x| x.created_at}.reverse
+    played_games = user_matches.select { |x| x.status == 'ended' }
+    played_games = played_games.sort_by(&:created_at).reverse
     @played_games = MatchDecorator.decorate_collection(played_games)
     @created_count = Match.where(creator_id: @user).count
   end
@@ -25,7 +25,7 @@ class UsersController < ActionController::Base
         format.html { redirect_to(@user, :notice => 'Sus cambios se realizaron con éxito!') }
         format.json { respond_with_bip(@user) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: 'edit' }
         format.json { respond_with_bip(@user) }
       end
     end
@@ -36,5 +36,4 @@ class UsersController < ActionController::Base
   def user_params
     params.require(:user).permit(:description, :id, :user)
   end
-
 end
