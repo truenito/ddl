@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
-ruby "2.1.4"
+ruby '2.1.4'
 
 # Authentication
 gem 'devise'
 gem 'bcrypt-ruby'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem "cancan"
+gem 'cancan'
 
 # Core
 gem 'rails', '4.2.0'
