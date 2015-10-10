@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   get '/match_info' => 'matches#match_info'
   get '/live_matches' => 'home#live_matches'
 
-    # Seasons
-    get '/seasons/0' => 'pages#season0'
+  # Seasons
+  get '/seasons/0' => 'pages#season0'
 
-
+  # User list
   get 'users', to: 'users#index'
 
   resources :match_tokens, only: [:edit, :update]
@@ -25,11 +25,9 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks", :registrations => "registrations"}
+  devise_for :users, controllers: { omniauth_callbacks: 'callbacks', :registrations => 'registrations' }
 
-  get "user/:username" => "users#show", :constraints => { username: /[^:]+/ }
-  get "users/:username" => "users#show", :constraints => { username: /[^:]+/ }, :as => 'user'
-  put "users/:id" => "users#update", :constraints => { username: /[^:]+/ }
-
-
+  get 'user/:username' => 'users#show', constraints: { username: /[^:]+/ }
+  get 'users/:username' => 'users#show', constraints: { username: /[^:]+/ }, as: 'user'
+  put 'users/:id' => 'users#update', constraints: { username: /[^:]+/ }
 end

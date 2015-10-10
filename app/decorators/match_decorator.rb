@@ -30,7 +30,7 @@ delegate_all
     elsif !user
       markup = h.link_to('log in', '#',{"data-popup" => "facebox", :href => "#login-box"})
     elsif !user.facebook_authed?
-      markup = h.link_to('Autenticar FB', h.join_match_path(object.id))
+      markup = h.link_to('Autenticar Facebook', h.join_match_path(object.id))
     elsif !(user.match_tokens.where(match_id: object.id)).empty?
       markup = h.link_to('ver', h.match_path(match))
     elsif user.match_tokens.where(result: nil).any?

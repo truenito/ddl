@@ -1,6 +1,6 @@
 class MatchTokensController < ActionController::Base
   layout 'application'
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def edit
     @match_token = MatchToken.find params[:id]
@@ -31,7 +31,7 @@ class MatchTokensController < ActionController::Base
           end
         else
           flash[:success] = 'La partida ya tiene los votos suficientes, gracias!'
-          format.html {redirect_to matches_path }
+          format.html { redirect_to matches_path }
         end
       end
     else
@@ -54,5 +54,4 @@ class MatchTokensController < ActionController::Base
   def match_token_params
     params.require(:match_token).permit(:result)
   end
-
 end

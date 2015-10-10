@@ -1,3 +1,4 @@
+# Ability class, defines cancan permissions.
 class Ability
   include CanCan::Ability
 
@@ -8,7 +9,7 @@ class Ability
       can :dashboard
       can :manage, :all
     else
-      can :read, :all
+      can :read, :allIU
     end
   end
 end

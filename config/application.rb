@@ -16,8 +16,8 @@ module Ddl
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-     config.time_zone = 'Eastern Time (US & Canada)'
-     config.active_record.default_timezone = :local
+    config.time_zone = 'Eastern Time (US & Canada)'
+    config.active_record.default_timezone = :local
 
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :es
@@ -32,6 +32,5 @@ module Ddl
 
     # change schema dump format to enable postgre's hstore extension.
     config.active_record.schema_format = :sql
-
   end
 end
