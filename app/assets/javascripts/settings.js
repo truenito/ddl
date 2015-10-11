@@ -1,6 +1,5 @@
 (function() {
 	"use strict";
-
 	// DDL Shortcuts
 	$.Shortcuts.add({
     type: 'up',
@@ -11,20 +10,10 @@
 	});
 	$.Shortcuts.start();
 
-
+	// loader
 	$(window).load(function() {
 	$("#loader").fadeOut();
 	$("#mask").delay(0).fadeOut("slow");
-	});
-
-
-	$(document).ready(function() {
-		$.slidebars({
-			siteClose: false,
-		});
-		$('.sb-toggle-left').click(function(e) {
-			$(this).toggleClass('active');
-		});
 	});
 
 

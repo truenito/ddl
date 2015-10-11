@@ -79,7 +79,7 @@ class Match < ActiveRecord::Base
       winner_team = winner_team.first
 
       update_player_stats(winner_team, loser_team, result)
-      finalize_match(winner_team, result)
+      finalize_match(result)
     else
       cancel_match
     end

@@ -24,7 +24,6 @@
 //= jquery.easytabs.min.js
 //= jquery.flexslider.js
 //= settings.js
-//= slidebars.js
 //= styleswitcher.js
 //= jBox.js
 //= ddlNotifications.js

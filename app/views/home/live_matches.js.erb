@@ -2,7 +2,7 @@ $('#match-data').html("<%= escape_javascript(render(:partial => 'live_matches'))
 jQuery(document).ready(function($) {
   $('a[data-popup*=facebox]').facebox({
     opacity      : 0.9,
-    loadingImage : 'loading.gif',
-    closeImage   : 'closelabel.png'
+    loadingImage : '',
+    closeImage   : ''
   })
 })

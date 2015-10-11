@@ -1,4 +1,5 @@
 %section.header-area
+  = render 'layouts/main_menu'
   .banner-slider
     %ul.slides.clearfix
       %li= image_tag('banner-05.jpg')
@@ -6,24 +7,16 @@
       %li= image_tag('banner-04.jpg')
       %li= image_tag('banner-03.jpg')
       %li= image_tag('banner-02.jpg')
-
   .banner-cont-wrapper
     .container
-      .navigation-area.clearfix
-        %a.sb-toggle-left
-          %span{style: 'border: 2px solid black; height: 6px;'}
-          %span{style: 'border: 2px solid black; height: 6px;'}
-          %span{style: 'border: 2px solid black; height: 6px;'}
-        %i{style: 'font-size: 12px; background: black; color: white; padding: 2px;'} (open me with shift + m)
-        / = render ('layouts/user_panel')
       .logo-area
-        = image_tag('ddl-logo-white.png', style: 'width: 320px; height:237px;' )
+        = image_tag('ddl-logo-white.png', style: 'width: 320px; height:237px; margin-top: 100px;' )
         / %h1{style: 'color: white; -webkit-text-stroke: 1px black; font-size: 75px; padding: 0px;   text-shadow:-3px -3px 0 #000,3px -3px 0 #000,-3px 3px 0 #000, 3px 3px 0 #000;);'} dominican dota league
         / %h4{style: 'color: white; -webkit-text-stroke: 1px black;'} LIGA DOMINICANA DE INHOUSES
       .banner-conts
         .post-job
           - if current_user
-            = link_to('Ver juegos', matches_path, class: 'post-job-btn')
+            = link_to('Ver juegos', matches_path, class: 'post-job-btn shadow-1')
           - else
             = link_to('Registrate', new_user_registration_path, class: 'post-job-btn')
   = render ('layouts/login_box') unless user_signed_in?
@@ -34,7 +27,7 @@
         %h3.pull-left LIVE GAMES
         %span.pull-right{style: 'padding-top: 25px;'}= link_to('ver todos', matches_path)
         .clearfix
-        .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+        .job-list-head.clearfix{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
           .title Nombre
           .location Status
           .created Acción
@@ -74,8 +67,8 @@
 - unless @stats.nil?
   %section.job-statistics-main
     .container
-      %h3.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"} league statistics
-      %h5.uppercase.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "200"} DATOS GENERALES
+      %h3{"data-animation" => "fadeInUp", "data-animation-delay" => "100"} league statistics
+      %h5.uppercase{"data-animation" => "fadeInUp", "data-animation-delay" => "200"} DATOS GENERALES
       %hr
         %ul.statistic-val
           %li.animated{"data-animation" => "flipInY", "data-animation-delay" => "200"}
@@ -105,20 +98,20 @@
       .col-md-3.call-us-head.animated{"data-animation" => "fadeInLeft", "data-animation-delay" => "200", style: 'margin-top: -50px;'}
         .col-md-offset-3= image_tag('stomp-logo.png', {style: 'width: 100px; height: 100px'})
         %h2 STOMP MACHINE
-      .col-md-6.call-us-txt.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "300"}
+      .col-md-6.call-us-txt{"data-animation" => "fadeInUp", "data-animation-delay" => "300"}
         %p Síguenos en Facebook para mantenerte enterado sobre la plataforma!
       .col-md-3.call-us-link.animated{"data-animation" => "fadeInRight", "data-animation-delay" => "200"}
         %a.call-us-btn{:href => 'https://www.facebook.com/thestompmachine', target: '_blank'} NUESTRO FACEBOOK
-
-:css
-  .dataTables_filter {
-    display: none;
-  }
 
 :javascript
   $( document ).ready(function() {
     // Refresh match pool every 5 seconds.
     setInterval(refreshPartial, 5000);
+    function refreshPartial() {
+      $.ajax({
+        url: "/live_matches"
+     })
+    }
     $('#user-table').DataTable({
       "bAutoWidth": false,
       "aoColumns" : [ { sWidth: "5%" }, { sWidth: "10%" }, { sWidth: "60%" }, { sWidth: "15%" }, { sWidth: "5%" }, { sWidth: "5%" }],
@@ -128,8 +121,3 @@
        responsive: true
     });
   });
-  function refreshPartial() {
-    $.ajax({
-      url: "/live_matches"
-   })
-  }

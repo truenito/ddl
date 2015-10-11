@@ -26,12 +26,15 @@
           .col-md-4
             %i.fa.fa-pie-chart
             %h5 comunicacion
-            %p Ofrecemos un TeamSpeak gratuito 24/7 a todos los usuarios de la comunidad, por favor úsalo para las partidas!
+            %p Ofrecemos Discord y TeamSpeak gratuito 24/7 a todos los usuarios de la comunidad, por favor úsalo para las partidas!
             %p
-              %b Server:
+              %b Discord Server (activo):
+              = link_to('Server link', 'https://discordapp.com/invite/0THc6Gyql5PiZgcR')
+              %br
+              %b Teamspeak Server:
               192.241.180.40
               %br
-              %b Password:
+              %b Teamspeak Password:
               - if user_signed_in?
                 sw33t
               - else

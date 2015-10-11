@@ -1,41 +1,68 @@
-%header.sb-slidebar.sb-left
-  %nav.main-menu
-    %ul
+%nav.navbar-fixed-top.navbar-inverse
+  .collapse.navbar-collapse.js-navbar-collapse
+    %ul.nav.navbar-nav
+      %li.dropdown.mega-dropdown
+        = link_to(image_tag('menu-ex.png', width: 130), root_path, {class: 'navbar-brand dropdown-toggle', "data-toggle" => "dropdown", :href => "#", style: 'width: 180px;'})
+        %ul.dropdown-menu.mega-dropdown-menu
+          %li.col-sm-1
+            %ul
+              %br
+              %li= link_to('Inicio', root_path)
+              %li= link_to('Salir', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete}) if current_user
+              = link_to('log in','#', {"data-popup" => "facebox", :href => "#login-box", style: '; margin-left: 5px; color: black;'}) unless current_user
+          %li.col-sm-3
+            %ul
+              %li.dropdown-header Liga
+              %li= link_to('Ver Juegos', matches_path)
+              %li= link_to('Usuarios', users_path)
+              %li= link_to('Beta Season', '#')
+              %li= link_to('Crear +', new_match_path, class: 'post-job-btn col-md-5 shadow-1')
+              .clearfix
+          %li.col-sm-3
+            %ul
+              %li.dropdown-header Información
+              %li= link_to('Reglas', reglas_path)
+              %li= link_to('Nosotros', nosotros_path)
+              %li= link_to('Facebook', 'https://www.facebook.com/thestompmachine')
+              %li= mail_to('gabriel@estilopanda.com', 'Contacto')
+          %li.col-sm-3
+            %ul
+              %li.dropdown-header Beta season prizes
+              #womenCollection.carousel.slide{"data-ride" => "carousel"}
+                .carousel-inner
+                  .item.active
+                    = link_to('http://blog.dota2.com/2015/09/announcing-the-frankfurt-major/', target: '_blank') do
+                      %img.img-responsive{:alt => 'prize 1', :src => 'http://placehold.it/254x150/130A13/f5f5f5/&text=SF+Arcana'}
+                  .item
+                    = link_to('http://blog.dota2.com/2015/09/gameplay-update-6-85-and-more/', target: '_blank') do
+                      %img.img-responsive{:alt => 'price 2', :src => 'http://placehold.it/254x150/ff3546/f5f5f5/&text=Lina+Arcana'}
+                  .item
+                    = link_to(matches_path, target: '_blank') do
+                      %img.img-responsive{:alt => 'price 3', :src => 'http://placehold.it/254x150/3498db/f5f5f5/&text=Maiden+Arcana'}
+    %ul.nav.navbar-nav.navbar-right
       - if current_user
-        %li
-          .user-menu-data
-            = link_to("/user/#{current_user.name}") do
-              %h5{style: 'color: white; -webkit-text-stroke: 1px black; padding: 0px;'}= current_user.decorate.name
-            .user-rating= "#{current_user.rating} RATING"
-            .user-rating= "W: #{current_user.win_count} / L: #{current_user.lose_count}"
-        %br
+        %li.dropdown
+          = link_to(current_user.name, user_path(current_user.name.downcase), style: 'color: white; margin-right:15px; margin-top: 10px;', class: "dropdown-toggle{'aria-expanded' => 'false', 'data-toggle' => 'dropdown', :href => '#', :role => 'button'}")
+          %ul.dropdown-menu.login-menu{:role => "menu"}
+            %li= link_to("Rating: #{current_user.rating}", '', {style: 'font-style: italic;'})
+            %li.divider
+            %li= link_to('Salir', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete})
       - else
         %li
-          .waiting= link_to 'Iniciar sesión <br /><i>(login)</i>  '.html_safe, '#', {"data-popup" => "facebox", :href => "#login-box", class: 'ended'}
-        %br
-      %li
-        = link_to('Inicio', root_path)
-      %li
-        = link_to('Jugadores', users_path)
-      %li
-        %a{:href => "#"} Juegos
-        %ul.sub-menu
-          %li
-            = link_to 'Ver todos', matches_path
-          - if user_signed_in? && current_user.can_create_games?
-            %li
-              = link_to 'Crear +', new_match_path
-      %li
-        = link_to('Nosotros', nosotros_path)
-      %li
-        %a{:href => "#"} Reglas
-      %li
-        %a{:href => "#"} Contacto
-      %li
-        %a{:href => "https://www.facebook.com/thestompmachine"} FACEBOOK
-      %br
-      %br
-      %br
-      - if user_signed_in?
-        %li
-          = link_to('salir (logout)', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete})
+          = link_to('#', {"data-popup" => "facebox", :href => "#login-box", style: 'color: white; margin-right:15px; margin-top: 10px;'}) do
+            %span= image_tag('user.png', height: 15, width: 15, style: 'margin-right: 5px; maring-top: -5px;')
+            Log In
+
+:javascript
+  $(document).ready(function(){
+      $(".dropdown").hover(
+          function() {
+              $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("500");
+              $(this).toggleClass('open');
+          },
+          function() {
+              $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("500");
+              $(this).toggleClass('open');
+          }
+      );
+  });
