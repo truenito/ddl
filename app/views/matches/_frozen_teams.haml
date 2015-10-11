@@ -1,4 +1,4 @@
-.col-md-8.col-md-offset-2
+.col-md-8
   %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
   .col-md-3.pull-right{style: 'padding: 0;'}
     %h6{style: 'text-align: right;'}
@@ -34,7 +34,7 @@
             .location{:class => ("captain" if @radiant_captain_id == player['id'].to_i)}= @radiant_captain_id == player['id'].to_i ? "CAPTAIN" : "player"
             .create= player['status']
             .create= "W:#{player['win_count'].to_i} / L:#{player['lose_count'].to_i}"
-.col-md-8.col-md-offset-2
+.col-md-8
   %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
   .col-md-3.pull-right{style: 'padding: 0;'}
     %h6{style: 'text-align: right;'}

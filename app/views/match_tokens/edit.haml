@@ -1,89 +1,90 @@
-.col-md-8.col-md-offset-2{style: 'margin-top:10px;'}
-  .pull-left= link_to 'inicio', root_path, {style: 'color: rgb(181, 62, 76);'}
-  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
-  .pull-left= link_to 'matches', matches_path, {style: 'color: rgb(181, 62, 76);'}
-  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
-  .pull-left= link_to 'match', match_path(@match.id), {style: 'color: rgb(181, 62, 76);'}
-  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
-  .pull-left resultado
-.clearfix
-= render 'shared/flash', flash: flash
 .container
-  .col-md-8.col-md-offset-2
-    .centered
-      - if @match.status == 'playing'
-        = form_for @match_token, html: {class: "nifty_form"} do |f|
-          - ['radiant', 'dire', 'canceled'].each do |result|
-            %label.match-result-radio.col-md-8{class: result}
-              = f.radio_button 'result', result
-              - if result == 'canceled'
-                %i La partida fué cancelada
-              - else
-                = "Ganó #{result.humanize}"
-          = f.submit "VOTAR", class: 'input-button', data: { confirm: 'Está seguro que seleccionó correctamente?'}
-      - if @match.status == 'ended'
-        = @match.winner_team == false ? 'Match terminado, ganó: RADIANT' :  'Match terminado, ganó: DIRE'
-    .col-md-12.job-listing-full
-      .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
-        %ul.job-listings
-          %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
-            .title
-              %span.prof-photo
-                = link_to(image_tag('avatars/dota-logo.png'), '#')
-              %span.designation
-                = @match.name
-            .location
-              Status:
-              = @match.pretty_status
+  .col-md-12{style: 'margin-top:10px;'}
+    .pull-left= link_to 'inicio', root_path, {style: 'color: rgb(181, 62, 76);'}
+    .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+    .pull-left= link_to 'matches', matches_path, {style: 'color: rgb(181, 62, 76);'}
+    .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+    .pull-left= link_to 'match', match_path(@match.id), {style: 'color: rgb(181, 62, 76);'}
+    .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+    .pull-left resultado
+  .clearfix
+  = render 'shared/flash', flash: flash
+  .container
+    .col-md-12
+      .centered
+        - if @match.status == 'playing'
+          = form_for @match_token, html: {class: "nifty_form"} do |f|
+            - ['radiant', 'dire', 'canceled'].each do |result|
+              %label.match-result-radio.col-md-8{class: result}
+                = f.radio_button 'result', result
+                - if result == 'canceled'
+                  %i La partida fué cancelada
+                - else
+                  = "Ganó #{result.humanize}"
+            = f.submit "VOTAR", class: 'input-button', data: { confirm: 'Está seguro que seleccionó correctamente?'}
+        - if @match.status == 'ended'
+          = @match.winner_team == false ? 'Match terminado, ganó: RADIANT' :  'Match terminado, ganó: DIRE'
+      .col-md-12.job-listing-full
+        .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+          %ul.job-listings
+            %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+              .title
+                %span.prof-photo
+                  = link_to(image_tag('avatars/dota-logo.png'), '#')
+                %span.designation
+                  = @match.name
+              .location
+                Status:
+                = @match.pretty_status
 
-  .col-md-8.col-md-offset-2
-    %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
-    .col-md-3.pull-right{style: 'padding: 0;'}
-      %h6{style: 'text-align: right;'}
-    .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
-      .clearfix
-      .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
-        %ul.job-listings
-          - @radiant_team.users.decorate.each do |player|
-            %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
-              .title
-                %span.prof-photo
-                  = link_to(image_tag('avatars/radiant.png'), "/user/#{player.regular_name}")
-                %span.designation
-                  - if player.reported?(@match)
-                    = link_to("/user/#{player.regular_name}") do
-                      = player.name
-                      = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
-                  - else
-                    = link_to(player.name, "/user/#{player.regular_name}")
-              .location
-                rating:
-                = player.rating
-              .location{:class => ("captain" if @radiant_team.captain_id == player.id)}= @radiant_team.captain_id == player.id ? "CAPTAIN" : "player"
-  .col-md-8.col-md-offset-2
-    %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
-    .col-md-3.pull-right{style: 'padding: 0;'}
-      %h6{style: 'text-align: right;'}
-    .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
-      .clearfix
-      .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
-        %ul.job-listings
-          - @dire_team.users.decorate.each do |player|
-            %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
-              .title
-                %span.prof-photo
-                  = link_to(image_tag('avatars/dire.png'), "/user/#{player.regular_name}")
-                %span.designation
-                  - if player.reported?(@match)
-                    = link_to("/user/#{player.regular_name}") do
-                      = player.name
-                      = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
-                  - else
-                    = link_to(player.name, "/user/#{player.regular_name}")
-              .location
-                rating:
-                = player.rating
-              .location{:class => ("captain" if @dire_team.captain_id == player.id)}= @dire_team.captain_id == player.id ? "CAPTAIN" : "player"
+    .col-md-12
+      %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
+      .col-md-3.pull-right{style: 'padding: 0;'}
+        %h6{style: 'text-align: right;'}
+      .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+        .clearfix
+        .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+          %ul.job-listings
+            - @radiant_team.users.decorate.each do |player|
+              %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+                .title
+                  %span.prof-photo
+                    = link_to(image_tag('avatars/radiant.png'), "/user/#{player.regular_name}")
+                  %span.designation
+                    - if player.reported?(@match)
+                      = link_to("/user/#{player.regular_name}") do
+                        = player.name
+                        = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
+                    - else
+                      = link_to(player.name, "/user/#{player.regular_name}")
+                .location
+                  rating:
+                  = player.rating
+                .location{:class => ("captain" if @radiant_team.captain_id == player.id)}= @radiant_team.captain_id == player.id ? "CAPTAIN" : "player"
+    .col-md-12
+      %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
+      .col-md-3.pull-right{style: 'padding: 0;'}
+        %h6{style: 'text-align: right;'}
+      .col-md-12.job-listing-full{style: 'padding-top: 0px;'}
+        .clearfix
+        .job-list-head.clearfix.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+          %ul.job-listings
+            - @dire_team.users.decorate.each do |player|
+              %li.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
+                .title
+                  %span.prof-photo
+                    = link_to(image_tag('avatars/dire.png'), "/user/#{player.regular_name}")
+                  %span.designation
+                    - if player.reported?(@match)
+                      = link_to("/user/#{player.regular_name}") do
+                        = player.name
+                        = image_tag('reported.png', {class: 'mini-badge-icon-circle',  alt: 'Reportó', title: 'Reportó'} )
+                    - else
+                      = link_to(player.name, "/user/#{player.regular_name}")
+                .location
+                  rating:
+                  = player.rating
+                .location{:class => ("captain" if @dire_team.captain_id == player.id)}= @dire_team.captain_id == player.id ? "CAPTAIN" : "player"
 
 
 :css

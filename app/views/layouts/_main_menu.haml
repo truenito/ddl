@@ -4,7 +4,7 @@
       %li.dropdown.mega-dropdown
         = link_to(image_tag('menu-ex.png', width: 130), root_path, {class: 'navbar-brand dropdown-toggle', "data-toggle" => "dropdown", :href => "#", style: 'width: 180px;'})
         %ul.dropdown-menu.mega-dropdown-menu
-          %li.col-sm-1
+          %li.col-sm-1{style: 'margin-top: 12px;'}
             %ul
               %br
               %li= link_to('Inicio', root_path)
@@ -23,7 +23,7 @@
               %li.dropdown-header Información
               %li= link_to('Reglas', reglas_path)
               %li= link_to('Nosotros', nosotros_path)
-              %li= link_to('Facebook', 'https://www.facebook.com/thestompmachine')
+              %li= link_to('Facebook', 'https://www.facebook.com/thestompmachine', target: '_blank')
               %li= mail_to('gabriel@estilopanda.com', 'Contacto')
           %li.col-sm-3
             %ul

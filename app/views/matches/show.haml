@@ -1,19 +1,20 @@
-.col-md-8.col-md-offset-2{style: 'margin-top:10px;'}
-  .pull-left= link_to 'inicio', root_path, {style: 'color: rgb(181, 62, 76);'}
-  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
-  .pull-left= link_to 'matches', matches_path, {style: 'color: rgb(181, 62, 76);'}
-  .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
-  .pull-left match
-.clearfix
-#match-data
-  = render 'match_info'
-- if @match.teams.any?
-  - if @match.ended? && !@match.users_and_stats.nil?
-    = render 'frozen_teams'
-  - else
-    = render 'current_teams'
-#player-pool
-  = render 'player_pool'
+.container
+  .col-md-12{style: 'margin-top:10px;'}
+    .pull-left= link_to 'inicio', root_path, {style: 'color: rgb(181, 62, 76);'}
+    .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+    .pull-left= link_to 'matches', matches_path, {style: 'color: rgb(181, 62, 76);'}
+    .pull-left{style: 'color: rgb(181, 62, 76); padding: 0px 3px'}  >
+    .pull-left match
+  .clearfix
+  #match-data
+    = render 'match_info'
+  - if @match.teams.any?
+    - if @match.ended? && !@match.users_and_stats.nil?
+      = render 'frozen_teams'
+    - else
+      = render 'current_teams'
+  #player-pool
+    = render 'player_pool'
 
 / Refresh match pool every 5 seconds.
 :javascript

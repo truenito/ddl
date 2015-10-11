@@ -1,11 +1,11 @@
 - if @match.ended? && @match.users_and_stats.nil?
-  .col-md-8.col-md-offset-2
+  .col-md-8
     #match-info-alert{style: "background-color: black; padding: 20px 30px; margin-top:30px;"}
       %p
         %i.playing Esta partida es antigua (alpha) por tanto los stats de los jugadores (rating/win/loss etc) para esta partida se reflejan al día de hoy y NO representan los stats al tiempo en que se jugó esta partida.
       %p
         %i.playing Para partidas futuras ya se ha implementado esta funcionalidad.
-.col-md-8.col-md-offset-2
+.col-md-8
   %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
   .col-md-3.pull-right{style: 'padding: 0;'}
     %h6{style: 'text-align: right;'}
@@ -40,7 +40,7 @@
               rating:
               = player.rating
             .location{:class => ("captain" if @radiant_team.captain_id == player.id)}= @radiant_team.captain_id == player.id ? "CAPTAIN" : "player"
-.col-md-8.col-md-offset-2
+.col-md-8
   %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
   .col-md-3.pull-right{style: 'padding: 0;'}
     %h6{style: 'text-align: right;'}

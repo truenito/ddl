@@ -1,53 +1,54 @@
-.col-md-12
-  .col-md-10.col-md-offset-1
-    %h2.text-center jugadores
-    .clearfix
-    %table#user-table.table.table-striped.user-table
-      %thead
-        %tr
-          %th Pos
-          %th
-          %th Nombre
-          %th Donaciones ($US)
-          %th Juegos
-          %th W
-          %th L
-          %th Rating
-      %tbody
-        - @users.each_with_index do |user, position|
-          %tr.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100", class: user.position_table_class(position)}
-            %td.position.post= position + 1
-            %td.profile-pic= leaderboard_image(position)
-            %td
-              = link_to(user.name, "/user/#{user.regular_name}")
-              %br
-              %i= user.real_name
-            %td.i-info
-              - if user.donation_count.nil?
-                = "-"
-              - else
-                = "#{user.donation_count}"
-            %td.i-info= user.games_count
-            %td.i-info= user.win_count
-            %td.i-info= user.lose_count
-            %td.i-info= user.rating
+.container
+  .col-md-12
+    .col-md-10.col-md-offset-1
+      %h2.text-center jugadores
+      .clearfix
+      %table#user-table.table.table-striped.user-table
+        %thead
+          %tr
+            %th Pos
+            %th
+            %th Nombre
+            %th Donaciones ($US)
+            %th Juegos
+            %th W
+            %th L
+            %th Rating
+        %tbody
+          - @users.each_with_index do |user, position|
+            %tr.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100", class: user.position_table_class(position)}
+              %td.position.post= position + 1
+              %td.profile-pic= leaderboard_image(position)
+              %td
+                = link_to(user.name, "/user/#{user.regular_name}")
+                %br
+                %i= user.real_name
+              %td.i-info
+                - if user.donation_count.nil?
+                  = "-"
+                - else
+                  = "#{user.donation_count}"
+              %td.i-info= user.games_count
+              %td.i-info= user.win_count
+              %td.i-info= user.lose_count
+              %td.i-info= user.rating
 
 
-:javascript
-  $( document ).ready(function() {
-    $('#user-table').DataTable({
-      "bAutoWidth": false, "aoColumns" : [ { sWidth: "10%" }, { sWidth: "10%" }, { sWidth: "40%" }, { sWidth: "10%" }, { sWidth: "5%" }, { sWidth: "5%" }, { sWidth: "10%" }, { sWidth: "10%" }],
-      "oLanguage": {
-        "sLengthMenu": "Mostrar _MENU_ por página",
-        "sZeroRecords": "No hay jugadores",
-        "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ jugadores",
-        "sInfoEmpty": "Mostrando 0 a 0 de 0 records",
-        "sInfoFiltered": "(filtrado de _MAX_ total de jugadores)",
-        "sSearch": "Buscar: ",
-        oPaginate: {
-          "sNext": "Siguiente",
-          "sPrevious": "Anterior"
+  :javascript
+    $( document ).ready(function() {
+      $('#user-table').DataTable({
+        "bAutoWidth": false, "aoColumns" : [ { sWidth: "10%" }, { sWidth: "10%" }, { sWidth: "40%" }, { sWidth: "10%" }, { sWidth: "5%" }, { sWidth: "5%" }, { sWidth: "10%" }, { sWidth: "10%" }],
+        "oLanguage": {
+          "sLengthMenu": "Mostrar _MENU_ por página",
+          "sZeroRecords": "No hay jugadores",
+          "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ jugadores",
+          "sInfoEmpty": "Mostrando 0 a 0 de 0 records",
+          "sInfoFiltered": "(filtrado de _MAX_ total de jugadores)",
+          "sSearch": "Buscar: ",
+          oPaginate: {
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+          }
         }
-      }
+      });
     });
-  });

@@ -1334,7 +1334,7 @@ section.main{
 /* ==================================================== */
 
 .job-statistics-main {
-	padding:80px 0 90px 0;
+	padding: 0px 0 45px 0;
 	margin:0 0 0 0;
 	text-align:center;
 	background:#fbfbfb;
@@ -1640,7 +1640,7 @@ section.main{
 /* ==================================================== */
 
 .got-a-question {
-	padding:60px 0;
+	padding:20px 0;
 	margin:0 0 0 0;
 	background:#ffffff;
 	color:#130a13;
@@ -1767,7 +1767,7 @@ section.main{
 /* ==================================================== */
 
 .footer-main {
-	padding:80px 0 5px 0;
+	padding:30px 0 5px 0;
 	margin:0 0 0 0;
 	color:#130a13;
 	background:#ecf3f5;
@@ -2834,7 +2834,7 @@ h1 {
   }
   .mega-dropdown-menu > li ul > li > a:hover,
   .mega-dropdown-menu > li ul > li > a:focus {
-    text-decoration: none;
+    color: #555;
   }
   .mega-dropdown-menu .dropdown-header {
     font-size: 18px;

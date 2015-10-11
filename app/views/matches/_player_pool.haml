@@ -1,4 +1,4 @@
-.col-md-8.col-md-offset-2
+.col-md-12
   %h3.heading-centered player pool
   - if current_user && !current_user.match_tokens.where(result: nil).any?
     - if !current_user.facebook_authed?
