@@ -5,7 +5,7 @@
       %title Dominican DotA League
       = favicon_link_tag 'favicon.ico'
       %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-      %meta{:content => " DDL es una comunidad Dominicana de In-Houses conformada por jugadores competitivos especializados en Defense of the Ancients 2 (DotA 2).", :name => "description"}
+      %meta{:content => "DDL es una comunidad Dominicana de In-Houses conformada por jugadores competitivos especializados en Defense of the Ancients 2 (DotA 2).", :name => "description"}
       %meta{:content => "DotA 2, Dominicano, Dota dominicana, dota dominicano, Dota 2 dominicano, dota 2 latino, liga de dota latina, liga de dota dominicana, liga dominicana de dota, dota 2 liga, liga dota 2 dominicana, in houses dota 2, liga de inhouse dominicana, grupo dominicano de dota", :name => "keywords"}
       %meta{:content => "#{request.original_url}", :property => "og:url"}
       %meta{:content => "Dominican DotA League - ddl.do", :property => "og:title"}
@@ -13,8 +13,6 @@
       %meta{:content => "website", :property => "og:type"}
       %meta{:content => "http://ddl.do/ddl-logo-white.png", :property => "og:image"}
       %meta{:content => "ddl.do", :property => "og:site_name"}
-      %meta{:content => "DO", :property => "og:region"}
-      %meta{:content => "Dominican Republic", :property => "og:country_name"}
       - if (params[:controller] == 'matches') && params[:action] == 'show'
         %meta{:content => "Juego del Dominican Gaming League (ddl.do) - Nombre: #{@match.name}, Estatus: #{@match.pretty_status}, Creado por: #{@creator.name}, Fecha: #{DateTime.now.strftime("%d/%m/%Y")}.", :name => "description"}
     = stylesheet_link_tag    'application'
