@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   # Static pages
+  get 'mobile' => 'pages#mobiles'
   get '/report' => 'pages#report'
   get '/contact' => 'pages#contact'
   get '/reglas' => 'pages#rules'

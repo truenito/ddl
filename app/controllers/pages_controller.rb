@@ -1,12 +1,15 @@
 class PagesController < ApplicationController
   def about; end
 
-  def rules; end
+  def contact; end
 
   def report; end
 
-  def contact; end
+  def rules; end
 
-  # seasons
+  def mobiles
+    render layout: false
+  end
+
   def season0; end
 end
