@@ -1,4 +1,4 @@
-.col-md-8
+.col-md-12
   .centered
     %h2.heading-centered= "Reporte de resultados para el match ##{@match.id}"
   .col-md-12.job-listing-full
@@ -22,7 +22,7 @@
               %i{style: 'color: rgb(28, 184, 30);'}= "#{@match.status}"
           .location= " " + time_ago_in_words(@match.created_at) match_token
 
-.col-md-8
+.col-md-12
   %h3.heading-centered{style: 'color: green;'} RADIANT TEAM
   .col-md-12.job-listing-full
     .clearfix
@@ -48,7 +48,7 @@
             .create= player.status
             .create= "W:#{player.win_count} / L:#{player.lose_count}"
 
-.col-md-8
+.col-md-12
   %h3.heading-centered{style: 'color: rgb(181, 62, 76);'} DIRE TEAM
   .col-md-12.job-listing-full
     .clearfix

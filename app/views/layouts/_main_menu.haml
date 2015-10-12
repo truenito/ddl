@@ -2,17 +2,14 @@
   .collapse.navbar-collapse.js-navbar-collapse
     %ul.nav.navbar-nav
       %li.dropdown.mega-dropdown
-        = link_to(image_tag('menu-ex.png', width: 130), root_path, {class: 'navbar-brand dropdown-toggle', "data-toggle" => "dropdown", :href => "#", style: 'width: 180px;'})
+        = link_to(image_tag('menu-ex.png', width: 130), root_path, {class: 'navbar-brand dropdown-toggle', "data-toggle" => "dropdown", :href => "root_path", style: 'width: 180px;'})
         %ul.dropdown-menu.mega-dropdown-menu
-          %li.col-sm-1{style: 'margin-top: 12px;'}
-            %ul
-              %br
-              %li= link_to('Inicio', root_path)
-              %li= link_to('Salir', destroy_user_session_path, {style: 'color: rgb(181, 62, 76)', method: :delete}) if current_user
-              = link_to('log in','#', {"data-popup" => "facebox", :href => "#login-box", style: '; margin-left: 5px; color: black;'}) unless current_user
+          %li.col-sm-12
+            %li= link_to('Inicio', root_path)
           %li.col-sm-3
             %ul
               %li.dropdown-header Liga
+              %li.divider
               %li= link_to('Juegos', matches_path)
               %li= link_to('Usuarios', users_path)
               %li= link_to('Season', '/seasons/0')
@@ -21,24 +18,23 @@
           %li.col-sm-3
             %ul
               %li.dropdown-header Información
+              %li.divider
               %li= link_to('Reglas', reglas_path)
               %li= link_to('Nosotros', nosotros_path)
               %li= link_to('Facebook', 'https://www.facebook.com/thestompmachine', target: '_blank')
               %li= mail_to('gabriel@estilopanda.com', 'Contacto')
           %li.col-sm-3
             %ul
-              %li.dropdown-header Beta season prizes
-              #womenCollection.carousel.slide{"data-ride" => "carousel"}
+              %li.dropdown-header Premios de la Beta Season
+              %li.divider
+              #menu-carousel.carousel.slide{"data-ride" => "carousel", "data-interval" => "2500"}
                 .carousel-inner
                   .item.active
-                    = link_to('http://blog.dota2.com/2015/09/announcing-the-frankfurt-major/', target: '_blank') do
-                      %img.img-responsive{:alt => 'prize 1', :src => 'http://placehold.it/254x150/130A13/f5f5f5/&text=SF+Arcana'}
+                    = link_to(image_tag('shadow-arcana.png', class: 'img-responsive'), '/seasons/0')
                   .item
-                    = link_to('http://blog.dota2.com/2015/09/gameplay-update-6-85-and-more/', target: '_blank') do
-                      %img.img-responsive{:alt => 'price 2', :src => 'http://placehold.it/254x150/ff3546/f5f5f5/&text=Lina+Arcana'}
+                    = link_to(image_tag('lina-arcana.png', class: 'img-responsive'), '/seasons/0')
                   .item
-                    = link_to(matches_path, target: '_blank') do
-                      %img.img-responsive{:alt => 'price 3', :src => 'http://placehold.it/254x150/3498db/f5f5f5/&text=Maiden+Arcana'}
+                    = link_to(image_tag('frozen-arcana.png', class: 'img-responsive'), '/seasons/0')
     %ul.nav.navbar-nav.navbar-right
       - if current_user
         %li.dropdown

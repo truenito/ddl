@@ -15,15 +15,9 @@
  *= require_self
  *= require animate.min.css
  *= require application.css
- *= require blue.css
  *= require bootstrap.css
- *= require dark-gray.css
  *= require facebox.css
  *= require fancySelect.css
- *= require gray.css
- *= require green.css
- *= require orange.css
- *= require pink.css
  *= require style.css
  *= require switcher.css
  *= require jBox.css

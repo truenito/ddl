@@ -20,7 +20,7 @@
               %br
                 host:
                 %i{style: 'color: rgb(181, 62, 76);'}= @creator.name
-          .location= "status: #{@match.pretty_status}".html_safe
+          .location= "estatus: #{@match.pretty_status}".html_safe
           - if current_user && @match.users.exists?(current_user)
             .location{style: 'text-transform: none !important;'}= "pass: #{@match.password}"
           .location= @match.time_ago

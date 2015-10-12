@@ -241,6 +241,7 @@ html, body {
 
 a, a:hover, a:active, a:visited, a:link {
     outline:none;
+    text-decoration: none;
     transition: all 0.5s ease 0s;
     -webkit-transition: all 0.5s ease 0s;
     -moz-transition: all 0.5s ease 0s;
@@ -1128,20 +1129,13 @@ section.main{
 	list-style:none;
 }
 .job-listings li {
+  color: #130A13;
 	padding:8px 15px;
 	margin:0 0 5px 0;
-	color:#130a13;
 	background:#ffffff;
-	border:2px solid #ffffff;
-    transition: all 0.5s ease 0s;
-    -webkit-transition: all 0.5s ease 0s;
-    -moz-transition: all 0.5s ease 0s;
 }
 .job-listings li:hover {
-	border:2px solid #130a13;
-    transition: all 0.5s ease 0s;
-    -webkit-transition: all 0.5s ease 0s;
-    -moz-transition: all 0.5s ease 0s;
+
 }
 .job-listings li:before, .job-listings li:after {
   display: table;
@@ -1189,9 +1183,9 @@ section.main{
 	width:100%;
 }
 .job-listings li .title .designation {
-	padding:5px 0 0 20px;
+	padding: 0 0 0 20px;
 	margin:0 0 0 0;
-	line-height:24px;
+	line-height: 16px;
 	display:block;
 	float:left;
 	max-width: 330px;
@@ -1640,7 +1634,7 @@ section.main{
 /* ==================================================== */
 
 .got-a-question {
-	padding:20px 0;
+	padding:1px 0;
 	margin:0 0 0 0;
 	background:#ffffff;
 	color:#130a13;
@@ -2835,7 +2829,8 @@ h1 {
   }
   .mega-dropdown-menu > li ul > li > a:hover,
   .mega-dropdown-menu > li ul > li > a:focus {
-    color: #555;
+    color: #999;
+    text-decoration: none;
   }
   .mega-dropdown-menu .dropdown-header {
     font-size: 18px;
