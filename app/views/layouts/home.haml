@@ -5,14 +5,16 @@
       %title Dominican DotA League
       = favicon_link_tag 'favicon.ico'
       %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-      %meta{:content => " DDL es una comunidad Dominicana de In-Houses conformada por jugadores competitivos especializados en Defense of the Ancients 2 (DotA 2).", :name => "description"}
+      %meta{:content => "ddl.do es una comunidad Dominicana de In-Houses conformada por jugadores competitivos especializados en Defense of the Ancients 2 (DotA 2).", :name => "description"}
       %meta{:content => "DotA 2, Dominicano, Dota dominicana, dota dominicano, Dota 2 dominicano, dota 2 latino, liga de dota latina, liga de dota dominicana, liga dominicana de dota, dota 2 liga, liga dota 2 dominicana, in houses dota 2, liga de inhouse dominicana, grupo dominicano de dota", :name => "keywords"}
-      %meta{:content => "Dominican DotA League - ddl.do", :property => "og:title"}/
-      %meta{:content => "website", :property => "og:type"}/
-      %meta{:content => "http://ddl.do/ddl-logo-white.png", :property => "og:image"}/
-      %meta{:content => "ddl.do", :property => "og:site_name"}/
-      %meta{:content => "DO", :property => "og:region"}/
-      %meta{:content => "Dominican Republic", :property => "og:country_name"}/
+      %meta{:content => "#{request.original_url}", :property => "og:url"}
+      %meta{:content => "Dominican DotA League - ddl.do", :property => "og:title"}
+      %meta{:content => "ddl.do es una comunidad Dominicana de In-Houses conformada por jugadores competitivos especializados en Defense of the Ancients 2 (DotA 2).", :property => "og:description"}
+      %meta{:content => "website", :property => "og:type"}
+      %meta{:content => "http://ddl.do/ddl-logo-white.png", :property => "og:image"}
+      %meta{:content => "ddl.do", :property => "og:site_name"}
+      %meta{:content => "DO", :property => "og:region"}
+      %meta{:content => "Dominican Republic", :property => "og:country_name"}
     = stylesheet_link_tag    'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
