@@ -2435,7 +2435,7 @@ ul.time-iconed li:before {
 /* 18. Media Query                                      */
 /* ==================================================== */
 
-@media (max-width: 1400px) { /* This media query is written for 1400PX resolution devices */
+@media (max-width: 1920px) { /* This media query is written for 1400PX resolution devices */
 
 .header-area {
 	/* padding:60px 0 75px 0; */
@@ -2444,6 +2444,11 @@ ul.time-iconed li:before {
 }
 .banner-conts {
 	padding:80px 0 0 0;
+}
+
+.banner-slider ul.slides li img {
+  width: auto;
+  height: 923px;
 }
 
 }
