@@ -50,17 +50,20 @@
               %th Juegos
               %th Rating
           %tbody
-            - @leaders.each_with_index do |leader, position|
-              %tr.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100", class: leader.position_table_class(position)}
+            - @leaders.each_with_index do |player, position|
+              %tr.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100", class: player.position_table_class(position)}
                 %td.position.post= position + 1
                 %td.profile-pic= leaderboard_image(position)
                 %td
-                  = link_to(leader.name, "/user/#{leader.regular_name}")
+                  - if current_user && current_user.id == player.id
+                    = link_to(player.name, "/user/#{player.regular_name}", style: 'color: black; font-size: 20px;')
+                  - else
+                    = link_to(player.name, "/user/#{player.regular_name}")
                   %br
-                  %i= leader.real_name
-                %td.i-info= leader.wins_and_losses
-                %td.i-info= leader.games_count
-                %td.i-info= leader.rating
+                  %i= player.real_name
+                %td.i-info= player.wins_and_losses
+                %td.i-info= player.games_count
+                %td.i-info= player.rating
         = link_to('Ver todos', users_path, {class: 'load-more-jobs', data: {animation: "fadeInUp", "animation-delay" => "100"}})
       .col-md-2{style: 'padding-top: 20px;'}
         = render ('layouts/stats_sidebar')

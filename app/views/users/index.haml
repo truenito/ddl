@@ -20,7 +20,10 @@
               %td.position.post= position + 1
               %td.profile-pic= leaderboard_image(position)
               %td
-                = link_to(user.name, "/user/#{user.regular_name}")
+                - if current_user && current_user.id == user.id
+                  = link_to(user.name, "/user/#{user.regular_name}", style: 'color: black; font-size: 20px;')
+                - else
+                  = link_to(user.name, "/user/#{user.regular_name}")
                 %br
                 %i= user.real_name
               %td.i-info
