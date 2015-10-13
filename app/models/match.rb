@@ -110,11 +110,11 @@ class Match < ActiveRecord::Base
   # Saves match result information for teams and sets "ended" status.
   def finalize_match(result)
     if result == 'radiant'
-      winner_team_bool = false
+      self.winner_team = false
     elsif result == 'dire'
-      winner_team_bool = true
+      self.winner_team = true
     end
-    match_tokens.each { |t| t.result = winner_team_bool; t.save! }
+    match_tokens.each { |t| t.result = winner_team; t.save! }
 
     self.status = 'ended'
     self.save!
