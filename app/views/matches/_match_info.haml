@@ -7,7 +7,7 @@
         .pull-right= link_to('cancelar partida', match_path(@match), {method: :delete, data: {confirm: 'Estás seguro de que quieres cancelar esta partida? (una vez cancelada no hay vuelta atrás!)'}, style: 'color: rgb(181, 62, 76); font-size: 18px;'})
       - elsif current_user && current_user.match_tokens.exists?(match_id: @match.id) && @match.status == 'playing'
         .pull-right= "  (#{@match.votes_number} reportes)"
-        .pull-right.blink_me= link_to "Reportar Resultado ", edit_match_token_path(@match_token.id), {style: 'color: green; font-size: 18px; margin-right: 5px;'}
+        .pull-right.blink_me= link_to "Reportar Resultado ", edit_match_token_path(current_user.match_tokens.find_by_match_id(@match.id)), {style: 'color: green; font-size: 18px; margin-right: 5px;'}
     .clearfix
     .job-list-head.clearfix
       %ul.job-listings

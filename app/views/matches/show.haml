@@ -16,13 +16,14 @@
   #player-pool
     = render 'player_pool'
 
-/ Refresh match pool every 5 seconds.
-:javascript
-  $(document).ready(function () {
-      setInterval(refreshPartial, 5000)
-  });
-  function refreshPartial() {
-    $.ajax({
-      url: "/match_info?id=#{@match.id}"
-   })
-  }
+/ Refresh match pool every 5 if waiting for players seconds.
+- if @match.status == 'waiting'
+  :javascript
+    $(document).ready(function () {
+        setInterval(refreshPartial, 5000)
+    });
+    function refreshPartial() {
+      $.ajax({
+        url: "/match_info?id=#{@match.id}"
+     })
+    }

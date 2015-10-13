@@ -1,2 +1,5 @@
 $('#player-pool').html("<%= escape_javascript(render(:partial => 'player_pool')) %>");
 $('#match-data').html("<%= escape_javascript(render(:partial => 'match_info')) %>");
+<% if @match.teams.any? %>
+  location.reload();
+<% end %>
