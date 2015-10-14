@@ -21,10 +21,12 @@
   = render ('layouts/login_box') unless user_signed_in?
 %section.live-leaderboards
   .container
-    .row.clearfix
-      .col-md-10{style: 'padding-top: 20px;'}
+    .row
+      .col-md-10
         %h3.pull-left LIVE GAMES
-        %span.pull-right{style: 'padding-top: 25px;'}= link_to('ver todos', matches_path)
+        .pull-right.pt-15
+          = link_to('crear +', new_match_path, {class: 'action-button-orange', style: 'display: inline;' }) if current_user && current_user.can_create_games?
+          = link_to('ver juegos', matches_path, {class: 'action-button-blue', style: 'display: inline;' })
         .clearfix
         .job-list-head.clearfix{"data-animation" => "fadeInUp", "data-animation-delay" => "100"}
           .title Nombre
@@ -33,26 +35,21 @@
         %ul.job-listings
           #match-data
             = render 'live_matches'
-        -  if user_signed_in? && current_user.can_create_games?
-          = link_to('Crear un juego', new_match_path, {class: 'load-more-jobs', data: {animation: "fadeInUp", "animation-delay" => "100"}})
-        - else
-          = link_to('Crear un juego', new_match_path, {class: 'load-more-jobs', data: {animation: "fadeInUp", "animation-delay" => "100"}})
-        %h3.pull-left{style: 'margin-top: 5px;'} LEADERS
-        %span.pull-right{style: 'padding-top: 25px;'}= link_to('ver todos', users_path)
+        %h3.pull-left LEADERS
+        .pull-right.pt-15
+          = link_to('ver usuarios', users_path, {class: 'action-button-blue', style: 'display: inline;' })
         %table#user-table.table.table-striped.user-table
           %thead
             %tr
               %th Pos
-              %th
               %th Nombre
               %th W/L
               %th Juegos
               %th Rating
-          %tbody
+          %tbody.leaderboard-content
             - @leaders.each_with_index do |player, position|
-              %tr.animated{"data-animation" => "fadeInUp", "data-animation-delay" => "100", class: player.position_table_class(position)}
-                %td.position.post= position + 1
-                %td.profile-pic= leaderboard_image(position)
+              %tr{ class: player.position_table_class(position) }
+                %td.position.post{style: 'text-align: center;'}= position + 1
                 %td
                   - if current_user && current_user.id == player.id
                     = link_to(player.name, "/user/#{player.regular_name}", style: 'color: black; font-size: 20px;')
@@ -63,8 +60,7 @@
                 %td.i-info= player.wins_and_losses
                 %td.i-info= player.games_count
                 %td.i-info= player.rating
-        = link_to('Ver todos', users_path, {class: 'load-more-jobs', data: {animation: "fadeInUp", "animation-delay" => "100"}})
-      .col-md-2{style: 'padding-top: 20px;'}
+      .col-md-2{style: 'margin-top: -3px;'}
         = render ('layouts/stats_sidebar')
 - unless @stats.nil?
   %section.job-statistics-main
@@ -116,7 +112,7 @@
     }
     $('#user-table').DataTable({
       "bAutoWidth": false,
-      "aoColumns" : [ { sWidth: "5%" }, { sWidth: "10%" }, { sWidth: "60%" }, { sWidth: "15%" }, { sWidth: "5%" }, { sWidth: "5%" }],
+      "aoColumns" : [ { sWidth: "10%" }, { sWidth: "50%" }, { sWidth: "15%" }, { sWidth: "5%" }, { sWidth: "15%" }],
       "bPaginate": false,
       "showNEntries": false,
       "bInfo":false,

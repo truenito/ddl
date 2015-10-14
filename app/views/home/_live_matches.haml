@@ -2,14 +2,12 @@
   .centered= "No hay matches en vivo, #{link_to 'Crea un Lobby!', new_match_path}".html_safe
 - else
   - @latest_matches.each do |match|
-    %li
-      .title
-        %span.prof-photo
-          %a{:href => "#"}
-            = link_to(image_tag('avatars/sven-avatar.png'), match_path(match))
-        %span.designation
-          = link_to(match.name, match_path(match))
-          %br
-            = match.created_at.strftime("Creada %m/%d/%Y - %I:%M%p")
-      .streak= match.pretty_status
-      .rating= match.action(current_user)
+    = link_to(match_path(match))do
+      %li
+        .title
+          %span.designation
+            = match.name
+            %br
+              = match.created_at.strftime("Creada %m/%d/%Y - %I:%M%p")
+        .streak= match.pretty_status
+        .rating= match.action(current_user)
