@@ -6,6 +6,7 @@ class Match < ActiveRecord::Base
   has_many :match_tokens
 
   default_scope { order('created_at DESC') }
+  scope :live, -> { where('status = ? or status = ?', 'waiting', 'playing') }
 
   # Interface to create teams.
   def create_teams

@@ -10,12 +10,12 @@ class HomeController < ActionController::Base
 
     leaders = User.league_leaders if User.all.any?
     @leaders = UserDecorator.decorate_collection(leaders)
-    latest_matches = Match.where('status = ? or status = ?', 'waiting', 'playing')
+    latest_matches = Match.live
     @latest_matches = latest_matches.decorate
   end
 
   def live_matches
-    latest_matches = Match.where('status = ? or status = ?', 'waiting', 'playing')
+    latest_matches = Match.live
     @latest_matches = latest_matches.decorate
 
     respond_to do |format|
