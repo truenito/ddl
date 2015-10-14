@@ -5,6 +5,8 @@ class Match < ActiveRecord::Base
   has_many :teams
   has_many :match_tokens
 
+  default_scope { order('created_at DESC') }
+
   # Interface to create teams.
   def create_teams
     # Get relevant players data and balance for team creation.
@@ -136,7 +138,7 @@ class Match < ActiveRecord::Base
     self.users_and_stats = players_pool_with_stats.as_json
   end
 
-  # match statuses/interactions.
+  # number of decision votes a match has.
   def votes_number
     match_tokens.select { |token| !token.result.nil? }.count
   end

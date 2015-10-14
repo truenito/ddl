@@ -1,10 +1,13 @@
 class MatchesController < ActionController::Base
   layout 'application'
-  before_filter :authenticate_user!, :except => [:show, :index, :match_info]
+
+  before_action :authenticate_user!, except: [:show, :index, :match_info]
+  before_action -> { establish_match_entities Match.find(params[:id]) },
+                only: [:show, :match_info]
 
   def index
     matches = Match.all
-    @matches = matches.decorate.sort_by(&:created_at).reverse
+    @matches = matches.decorate
 
     respond_to do |format|
       format.html
@@ -15,10 +18,11 @@ class MatchesController < ActionController::Base
   def show
     match = Match.find(params[:id])
     @match = match.decorate
-    establish_match_entities(@match)
 
-    @match_token = MatchToken.where(user_id: current_user, match_id: params[:id]).first if current_user && current_user.in_match?(@match.id)
-    (@rating_change = Team.rating_change(@radiant_team_avg, @dire_team_avg)) if @match.teams.any?
+    @match_token = MatchToken.from_user_and_match(current_user, params[:id]) \
+    if current_user && current_user.in_match?(@match.id)
+    (@rating_change = Team.rating_change(@radiant_team_avg, @dire_team_avg)) \
+    if @match.teams.any?
 
     respond_to do |format|
       format.html
@@ -29,8 +33,8 @@ class MatchesController < ActionController::Base
   def match_info
     match = Match.find(params[:id])
     @match = match.decorate
-    establish_match_entities(match)
-    @new_players_count = @match.match_tokens.select { |t| t.created_at > 5.seconds.ago }.size
+
+    @new_players_count = MatchToken.created_recently match
 
     respond_to do |format|
       format.js { render layout: false }
@@ -112,7 +116,8 @@ class MatchesController < ActionController::Base
   def join
     @match = Match.find(params[:id])
 
-    (match_token = MatchToken.new(user_id: current_user.id, match_id: params[:id])) if @match.joinable? && current_user.joinable?
+    (match_token = MatchToken.new(user_id: current_user.id, match_id: params[:id])) \
+    if @match.joinable? && current_user.joinable?
 
     redirect_to user_omniauth_authorize_path(:facebook) unless current_user.joinable?
     if current_user.unjoinable? || current_user.in_match?(@match.id)
@@ -122,6 +127,7 @@ class MatchesController < ActionController::Base
     end
 
     match_token.save!
+
     flash[:success] =  'Usted entró a la partida!'
     if @match.match_tokens.count == 10
       @match.create_teams
@@ -143,12 +149,10 @@ class MatchesController < ActionController::Base
     @players = players.decorate
     frozen_users_and_stats(match) if match.ended? && !match.users_and_stats.nil?
 
-    return true unless @radiant_team.present?
-    if match.ended? && !match.users_and_stats.nil?
-      sum = 0
-      @radiant_team.each { |u| sum += u['rating'].to_i }; @radiant_team_avg = sum / 5
-      sum = 0
-      @dire_team.each { |u| sum += u['rating'].to_i }; @dire_team_avg = sum / 5
+    return true if @radiant_team.nil?
+    if match.ended? && match.users_and_stats.present?
+      @radiant_team_avg = Team.rating_average @radiant_team
+      @dire_team_avg = Team.rating_average @dire_team
     else
       @radiant_team_avg = (@radiant_team.users.sum(:rating) / @radiant_team.users.count)
       @dire_team_avg = (@dire_team.users.sum(:rating) / @dire_team.users.count)

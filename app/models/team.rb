@@ -15,24 +15,32 @@ class Team < ActiveRecord::Base
     dire_team.users << balanced_teams_hash[:dire]; dire_team.save!
   end
 
-  # Interface to calculate Rating Change based on teams.
-  def self.rating_change(radiant, dire)
-    return nil if radiant.nil? || dire.nil?
-    { radiant: team_rating_change(EloRating::Match.new, 'radiant', radiant, dire),
-      dire: team_rating_change(EloRating::Match.new, 'dire', radiant, dire) }
-  end
+  class << self
+    # Interface to calculate Rating Change based on teams.
+    def rating_change(radiant, dire)
+      return nil if radiant.nil? || dire.nil?
+      { radiant: team_rating_change(EloRating::Match.new, 'radiant', radiant, dire),
+        dire: team_rating_change(EloRating::Match.new, 'dire', radiant, dire) }
+    end
 
-  # Calculates rating win/loss depending on the winner team, receives an
-  # EloRating Match to calculate amounts with the update_ratings method.
-  def self.team_rating_change(match, winner, radiant, dire)
-    if winner == 'radiant'
-      match.add_player(rating: radiant, winner: true)
-      match.add_player(rating: dire)
-      match.updated_ratings[0] - radiant
-    else
-      match.add_player(rating: radiant)
-      match.add_player(rating: dire, winner: true)
-      match.updated_ratings[1] - dire
+    # Calculates rating win/loss depending on the winner team, receives an
+    # EloRating Match to calculate amounts with the update_ratings method.
+    def team_rating_change(match, winner, radiant, dire)
+      if winner == 'radiant'
+        match.add_player(rating: radiant, winner: true)
+        match.add_player(rating: dire)
+        match.updated_ratings[0] - radiant
+      else
+        match.add_player(rating: radiant)
+        match.add_player(rating: dire, winner: true)
+        match.updated_ratings[1] - dire
+      end
+    end
+
+    # Calculates team average rating.
+    def rating_average(team)
+      sum = 0; team.each { |u| sum += u['rating'].to_i }
+      sum / 5
     end
   end
 end
