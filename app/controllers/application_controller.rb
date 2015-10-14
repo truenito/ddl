@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
    request.user_agent =~ /Mobile|webOS/
   end
 
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   redirect_to main_app.root_path, :alert => exception.message
-  # end
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = 'Usted no tiene permiso para accesar a esta información.'
+    redirect_to main_app.root_path
+  end
 end
