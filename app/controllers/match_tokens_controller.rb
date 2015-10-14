@@ -8,7 +8,7 @@ class MatchTokensController < ActionController::Base
 
     if current_user.in_match? match.id
       @match = match.decorate
-      set_match_entities @match
+      establish_match_entities @match
     else
       flash[:error] = 'Usted no está jugando esta partida.'
       redirect_to home_path
@@ -40,9 +40,8 @@ class MatchTokensController < ActionController::Base
     end
   end
 
-  def set_match_entities(match)
-    players = match.users
-    @players = players.decorate
+  def establish_match_entities(match)
+    @players = match.users.decorate
     @radiant_team = match.teams.first
     @dire_team = match.teams.last
     @radiant_radiant_teamvg = @radiant_team.users.sum(:rating) / 5
