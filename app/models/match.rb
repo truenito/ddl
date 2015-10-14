@@ -84,7 +84,7 @@ class Match < ActiveRecord::Base
       update_player_stats(winner_team, loser_team, result)
       finalize_match(result)
     else
-      cancel_match
+      cancel
     end
   end
 
@@ -124,7 +124,7 @@ class Match < ActiveRecord::Base
   end
 
   # Cancels a match and unties users from it.
-  def cancel_match
+  def cancel
     self.status = 'canceled'
     self.winner_team = nil
     self.save!

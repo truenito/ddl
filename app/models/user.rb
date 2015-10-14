@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def unjoinable?
+    return false if matches.empty?
     !facebook_authed? || matches.last.playing?
   end
 
