@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_to_mobile_if_applicable
 
   def redirect_to_mobile_if_applicable
-    redirect_to mobile_path if mobile_request?
+    redirect_to mobile_path if mobile_device?
   end
 
-  def mobile_request?
-    request.env['HTTP_USER_AGENT'] && request.env['HTTP_USER_AGENT'][/(iPhone|iPod|Android)/]
+  def mobile_device?
+   request.user_agent =~ /Mobile|webOS/
   end
 
   # rescue_from CanCan::AccessDenied do |exception|
