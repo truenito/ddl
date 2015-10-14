@@ -60,4 +60,8 @@ class User < ActiveRecord::Base
   def to_label
     "#{name} - #{email}"
   end
+
+  def played_matches
+    matches.select { |x| x.status == 'ended' }
+  end
 end
