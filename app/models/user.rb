@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   end
 
   def leave_match(match)
+    return false if match.playing? || match.ended?
     match.match_tokens.find_by(user_id: id).delete
   end
 

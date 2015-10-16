@@ -22,7 +22,7 @@ class MatchTokensController < ActionController::Base
       respond_to do |format|
         if @match.status == 'playing'
           if @match_token.update_attributes match_token_params
-            @match.commit_match
+            @match.commit
             flash[:success] = 'Su voto fué procesado.'
             format.html { redirect_to edit_match_token_path @match_token }
           else

@@ -115,25 +115,21 @@ class MatchesController < ActionController::Base
 
   def join
     @match = Match.find(params[:id])
+    redirect_to user_omniauth_authorize_path(:facebook) if current_user.unjoinable?
 
-    (match_token = MatchToken.new(user_id: current_user.id, match_id: params[:id])) \
     if @match.joinable? && current_user.joinable?
-
-    redirect_to user_omniauth_authorize_path(:facebook) unless current_user.joinable?
-    if current_user.unjoinable? || current_user.in_match?(@match.id)
+      match_token = MatchToken.new(user_id: current_user.id, match_id: params[:id])
+    else
       flash[:error] =  'Usted se encuentra en una partida activa (o no ha autenticado con Facebook).'
       redirect_to match_path(@match)
-      return false
     end
 
     match_token.save!
 
-    flash[:success] =  'Usted entró a la partida!'
-    if @match.match_tokens.count == 10
-      @match.create_teams
-      @match.status = 'playing'
-      @match.save!
-      flash[:success] =  'La partida comenzó!'
+    if @match.start
+      flash[:success] =  'La partida se completó contigo, suerte!'
+    else
+      flash[:success] =  'Usted entró a la partida!'
     end
     redirect_to match_path(@match)
   end

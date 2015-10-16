@@ -1,14 +1,85 @@
 # Match class, models a match (game) in the league, a match starts empty and
 # finishes with 10 players, 2 teams (one winner and one loser).
 class Match < ActiveRecord::Base
-  has_many :users, through: :match_tokens
   has_many :teams
   has_many :match_tokens
+  has_many :users, through: :match_tokens
 
   default_scope { order('created_at DESC') }
   scope :live, -> { where('status = ? or status = ?', 'waiting', 'playing') }
 
-  # Interface to create teams.
+  # Checks if match is being played at the moment.
+  def playing?
+    status == 'playing'
+  end
+
+  # Checks if match has ended.
+  def ended?
+    status == 'ended'
+  end
+
+  # Checks if  match is canceled.
+  def canceled?
+    status == 'canceled'
+  end
+
+  # Checks if match is leaveable at the moment.
+  def leavable?
+    status != 'playing' && status != 'ended'
+  end
+
+  # Checks if match is joinable by players/waiting for players.
+  def joinable?
+    status == 'waiting'
+  end
+  alias_method :waiting?, :joinable?
+
+  # Calculates the number of result votes a match has.
+  def votes_number
+    match_tokens.select { |token| token.result.present? }.count
+  end
+
+  def enough_vote_frequency?
+    freq = Hash.new(0)
+    voted_results = match_tokens.map(&:result)
+    voted_results.each { |v| freq[v] += 1 }
+    freq['radiant'] >= 6 || freq['canceled'] >= 6 || freq['dire'] >= 6 ? true : false
+  end
+
+  def vote_frequency
+    freq = Hash.new(0)
+    voted_results = match_tokens.map(&:result)
+    voted_results.each { |v| freq[v] += 1 }
+    freq
+  end
+
+  # If the match hasn't been canceled, has started but hasn't ended, and it has more than
+  # 6 votes with the same result it's commitable (commit: save the result and end it).
+  def committable?(freq = {})
+    return false if status == 'ended' || status == 'canceled'
+    enough_vote_frequency?
+  end
+
+  # Starts a match, creates the teams and changes status to playing
+  # if enough Users have joined the match (10 Users).
+  def start
+    return false if match_tokens.count != 10
+    create_teams
+    self.status = 'playing'
+    self.save!
+  end
+
+  # Cancels a match and unties Users from it.
+  def cancel
+    return false if playing? && votes_number < 6
+    self.status = 'canceled'
+    self.winner_team = nil
+
+    match_tokens.destroy_all
+    self.save!
+  end
+
+  # Interface to create balanced teams.
   def create_teams
     # Get relevant players data and balance for team creation.
     players_pool = users.pluck(:user_id, :rating)
@@ -71,11 +142,18 @@ class Match < ActiveRecord::Base
     { radiant: radiant, dire: dire }
   end
 
+  # Saves frozen user attributes for future reference i.e: actual rating at the
+  # time the match happened.
+  def save_users_and_attributes(*stats)
+    players_pool_with_stats = users.select(stats)
+    self.users_and_stats = players_pool_with_stats.as_json
+  end
+
   # Commit and finalize the Match if enough votes have been processed.
   # 6 votes is enough to declare a winner.
-  def commit_match
+  def commit
     return false unless committable?
-    result = @freq.reject { |_k, v| v < 6 }.keys.first
+    result = vote_frequency.reject { |_k, v| v < 6 }.keys.first
     if result == 'radiant' || result == 'dire'
       winner_team = teams.where(side: result)
       loser_team = (teams - winner_team).first
@@ -99,6 +177,7 @@ class Match < ActiveRecord::Base
     rating_change = (Team.rating_change((winner_team.users.sum(:rating) / 5),
                                         (loser_team.users.sum(:rating) / 5)))
 
+    # TODO: @truenito simplify this, DRY up/split to methods.
     # Decrease losing team's rating and increase winner team's rating
     # based on the rating change.
     if result == 'radiant'
@@ -121,63 +200,5 @@ class Match < ActiveRecord::Base
 
     self.status = 'ended'
     self.save!
-  end
-
-  # Cancels a match and unties users from it.
-  def cancel
-    self.status = 'canceled'
-    self.winner_team = nil
-    self.save!
-
-    match_tokens.destroy_all
-  end
-
-  # Saves frozen user attributes for future reference i.e: actual rating at the
-  # time the match happened.
-  def save_users_and_attributes(*stats)
-    players_pool_with_stats = users.select(stats)
-    self.users_and_stats = players_pool_with_stats.as_json
-  end
-
-  # number of decision votes a match has.
-  def votes_number
-    match_tokens.select { |token| !token.result.nil? }.count
-  end
-
-  # Checks if match is joinable by players/waiting for players.
-  def joinable?
-    status == 'waiting'
-  end
-  alias_method :waiting?, :joinable?
-
-  # Checks if match is leaveable at the moment.
-  def leavable?
-    !(status == 'playing')
-  end
-
-  # Checks if match is being played at the moment.
-  def playing?
-    status == 'playing'
-  end
-
-  # Checks if  match is canceled.
-  def canceled?
-    status == 'canceled'
-  end
-
-  # Checks if match has ended.
-  def ended?
-    status == 'ended'
-  end
-
-  # Checks if the match has ended and if a team has enough result votes to
-  # commit it (save the results of the match and end it).
-  def committable?
-    return false if status == 'ended' || status == 'canceled'
-    @freq = Hash.new(0)
-    voted_results = match_tokens.map(&:result)
-    voted_results.each { |v| @freq[v] += 1 }
-
-    @freq['radiant'] >= 6 || @freq['canceled'] >= 6 || @freq['dire'] >= 6 ? true : false
   end
 end
