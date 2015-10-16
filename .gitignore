@@ -18,4 +18,8 @@
 
 config/secrets.yml
 config/newrelic.yml
-config/initializers/devise.rb
+config/environments/development.rb
+config/environments/test.rb
+
+# Ignore application configuration
+/config/application.yml

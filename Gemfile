@@ -7,6 +7,7 @@ gem 'bcrypt-ruby'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'cancan'
+gem 'figaro'
 
 # Core
 gem 'rails', '4.2.0'
