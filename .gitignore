@@ -16,7 +16,6 @@
 !/log/.keep
 /tmp
 
-config/secrets.yml
 config/newrelic.yml
 config/environments/development.rb
 config/environments/test.rb
