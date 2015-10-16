@@ -18,5 +18,4 @@
 
 config/secrets.yml
 config/newrelic.yml
-config/boot.rb
 config/initializers/devise.rb
