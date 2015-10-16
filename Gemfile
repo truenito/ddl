@@ -47,7 +47,7 @@ group :development, :test do
   # Testing
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
+  gem 'faker'
 
   # Goodies
   gem 'spring'
