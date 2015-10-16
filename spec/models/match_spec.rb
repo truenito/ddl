@@ -24,11 +24,6 @@ describe Match do
     expect(live_match.playing?).to eq(true)
   end
 
-  it 'should be being played if its live.' do
-    live_match = build(:live_match)
-    expect(live_match.playing?).to eq(true)
-  end
-
   it 'shouldnt be canceled if its new.' do
     match = build(:match)
     expect(match.canceled?).to eq(false)
