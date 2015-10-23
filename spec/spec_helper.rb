@@ -20,6 +20,16 @@ require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 require 'factory_girl'
 
+Uncomment to exclude files for test coverage.
+SimpleCov.start do
+  add_filter 'app/controllers/match_tokens_controller.rb'
+  add_filter 'app/controllers/match_tokens_controller.rb'
+  add_filter 'app/controllers/matches_controller.rb'
+  add_filter 'app/controllers/users_controller.rb'
+  add_filter 'app/helpers/application_helper.rb'
+  add_filter 'app/mixins/user_rankings.rb'
+end
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   # rspec-expectations config goes here. You can use an alternate
