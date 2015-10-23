@@ -2,6 +2,8 @@
 
 ![October15-Landing](http://s1.postimg.org/utxnyxojz/ddl_home.png)
 
+[![Code Climate](https://codeclimate.com/github/truenito/ddl/badges/gpa.svg)](https://codeclimate.com/github/truenito/ddl)
+
 DDL is a web based In-House ranking system built in Rails for the Dominican DotA 2 community and supported by the players from the Stomp Machine. 
 
 The community has been playing In House games for more than 7 years without having a way to organize them easily, this application helps with the creation, balancing, game tracking and ranking of players. It also ensures accounts are valid using a combination of human moderator and the integration with Facebook (popular in our country). 
