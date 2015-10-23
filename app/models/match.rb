@@ -166,27 +166,47 @@ class Match < ActiveRecord::Base
     end
   end
 
-  # TODO: @truenito: Split into little methods and make it an interface.
+  # Updates Users stats depending on the match result.
   def update_player_stats(winner_team, loser_team, result)
-    # update win counts
-    winner_team.users.each { |u| c = u.win_count + 1; u.win_count = c; u.save! }
-    loser_team.users.each { |u| c = u.lose_count + 1; u.lose_count = c; u.save! }
+    # Update win counts
+    users.each { |u| update_user_game_result_count(u, winner_team) }
 
     # Check how much player rating going to change.
-    rating_change = 0
-    rating_change = (Team.rating_change((winner_team.users.sum(:rating) / 5),
-                                        (loser_team.users.sum(:rating) / 5)))
+    rating_change = calculate_rating_change(winner_team, loser_team)
 
-    # TODO: @truenito simplify this, DRY up/split to methods.
-    # Decrease losing team's rating and increase winner team's rating
-    # based on the rating change.
     if result == 'radiant'
-      winner_team.users.each { |u| c = u.rating + rating_change[:dire]; u.rating = c; u.save! }
-      loser_team.users.each { |u| c = u.rating - rating_change[:dire]; u.rating = c; u.save! }
+      users.each { |u| update_user_rating(u, winner_team, rating_change, 'dire') }
     else
-      winner_team.users.each { |u| c = u.rating + rating_change[:radiant]; u.rating = c; u.save! }
-      loser_team.users.each { |u| c = u.rating - rating_change[:radiant]; u.rating = c; u.save! }
+      users.each { |u| update_user_rating(u, winner_team, rating_change, 'radiant') }
     end
+  end
+
+  # Calculates how much the rating should change depending on who won.
+  def calculate_rating_change(winner_team, loser_team)
+    (Team.rating_change((winner_team.users.sum(:rating) / 5),
+                        (loser_team.users.sum(:rating) / 5)))
+  end
+
+  # Updates win/loss count for user.
+  def update_user_game_result_count(user, winner_team)
+    if winner_team.users.include? user
+      user.win_count += 1
+    else
+      user.lose_count += 1
+    end
+    user.save!
+  end
+
+  # Updates rating for users depending on which team they were.
+  def update_user_rating(user, winner_team, rating_change, rating_change_name)
+    if winner_team.users.include? user
+      new_rating = user.rating + rating_change[rating_change_name.to_sym]
+      user.rating = new_rating
+    else
+      new_rating = user.rating - rating_change[rating_change_name.to_sym]
+      user.rating = new_rating
+    end
+    user.save!
   end
 
   # Saves match result information for teams and sets "ended" status.
