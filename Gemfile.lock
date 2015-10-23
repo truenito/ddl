@@ -53,6 +53,8 @@ GEM
     byebug (4.0.4)
       columnize (= 0.9.0)
     cancan (1.6.10)
+    codeclimate-test-reporter (0.4.8)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -71,6 +73,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     dota (0.0.15)
       faraday (~> 0.8.8)
       faraday_middleware (~> 0.9.1)
@@ -246,6 +249,11 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     spring (1.3.3)
     sprockets (2.12.3)
@@ -284,6 +292,7 @@ DEPENDENCIES
   better_errors
   byebug
   cancan
+  codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   devise
   dota
