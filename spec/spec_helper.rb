@@ -20,7 +20,7 @@ require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 require 'factory_girl'
 
-Uncomment to exclude files for test coverage.
+# Uncomment to exclude files for test coverage.
 SimpleCov.start do
   add_filter 'app/controllers/match_tokens_controller.rb'
   add_filter 'app/controllers/match_tokens_controller.rb'
