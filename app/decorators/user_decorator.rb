@@ -20,9 +20,9 @@ class UserDecorator < Draper::Decorator
     if object.real_name.nil?
       markup = '(sin nombre real)'
     elsif object.real_name.present? && object.real_middle_name && object.real_last_name
-      markup = object.real_name + ' ' + object.real_middle_name + ' ' + object.real_last_name
+      markup = object.real_name + ' ' + ' ' + object.real_last_name.first + '.'
     elsif object.real_name.present? && object.real_last_name
-      markup = object.real_name + ' ' + object.real_last_name
+      markup = object.real_name + ' ' + object.real_last_name.first + '.'
     end
     h.content_tag(:i, markup.html_safe)
   end
