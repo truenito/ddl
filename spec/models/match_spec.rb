@@ -148,7 +148,7 @@ describe Match do
     fill_match_with_users(match, 10)
 
     match.start
-    expect((Team.rating_average(match.teams.first)) - (Team.rating_average(match.teams.last)).abs).to be <= 6
+    expect((Team.rating_average(match.teams.first, match)) - (Team.rating_average(match.teams.last, match)).abs).to be <= 6
   end
 
   it 'should end a match and assign winner team correctly.' do

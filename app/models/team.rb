@@ -38,8 +38,12 @@ class Team < ActiveRecord::Base
     end
 
     # Calculates team average rating.
-    def rating_average(team)
-      sum = 0; team.users.each { |u| sum += u['rating'].to_i }
+    def rating_average(team, match)
+      if match.ended?
+        sum = 0; team.each { |u| sum += u['rating'].to_i }
+      else
+        sum = 0; team.users.each { |u| sum += u['rating'].to_i }
+      end
       sum / 5
     end
   end

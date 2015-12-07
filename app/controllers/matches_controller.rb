@@ -147,8 +147,8 @@ class MatchesController < ActionController::Base
 
     return true if @radiant_team.nil?
     if match.ended? && match.users_and_stats.present?
-      @radiant_team_avg = Team.rating_average @radiant_team
-      @dire_team_avg = Team.rating_average @dire_team
+      @radiant_team_avg = Team.rating_average @radiant_team, match
+      @dire_team_avg = Team.rating_average @dire_team, match
     else
       @radiant_team_avg = (@radiant_team.users.sum(:rating) / @radiant_team.users.count)
       @dire_team_avg = (@dire_team.users.sum(:rating) / @dire_team.users.count)
